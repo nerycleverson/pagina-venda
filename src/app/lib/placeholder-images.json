@@ -1,0 +1,17 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-cake",
+      "description": "A beautiful artisan cake with delicate decorations",
+      "imageUrl": "https://picsum.photos/seed/cake123/600/800",
+      "imageHint": "artisan cake confectionery"
+    },
+    {
+      "id": "confectioner-working",
+      "description": "A professional confectioner decorating a cake",
+      "imageUrl": "https://picsum.photos/seed/bake456/600/400",
+      "imageHint": "confectioner baking"
+    }
+  ]
+}
