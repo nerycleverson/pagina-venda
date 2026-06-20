@@ -15,10 +15,10 @@ import { z } from 'genkit';
 
 const SimulateWhatsappResponseInputSchema = z.object({
   customerObjection: z.enum([
-    'Cliente que acha caro e some',
-    'Cliente que pede desconto e eu não seguro',
-    'Demoro pra responder e perco a venda',
-    'Travo no que escrever pra não parecer robô',
+    'Cliente recebe o preço e some',
+    'Cliente pede desconto',
+    'Cliente diz que está caro',
+    'Não sei como conduzir a conversa',
   ]).describe('The specific objection or pain point the customer has.'),
   confectionerTone: z.enum([
     'Carinhosa, cheia de amor',
@@ -39,14 +39,14 @@ export type SimulateWhatsappResponseOutput = z.infer<typeof SimulateWhatsappResp
  */
 function getCustomerMessage(objection: SimulateWhatsappResponseInput['customerObjection']): string {
   switch (objection) {
-    case 'Cliente que acha caro e some':
-      return 'Amei o bolo mas achei caro 😅';
-    case 'Cliente que pede desconto e eu não seguro':
-      return 'Adorei seu trabalho, mas o concorrente faz mais barato. Tem como fazer um preço melhor?';
-    case 'Demoro pra responder e perco a venda':
-      return 'Preciso de um bolo de aniversário para amanhã, com tema de unicórnio e recheio de brigadeiro com morango. Você consegue fazer? E quanto fica?';
-    case 'Travo no que escrever pra não parecer robô':
-      return 'Bom dia! Gostaria de saber mais sobre os sabores de bolo de casamento que vocês oferecem.';
+    case 'Cliente recebe o preço e some':
+      return 'Oi! Vou conversar aqui em casa e qualquer coisa te aviso 😊';
+    case 'Cliente pede desconto':
+      return 'Adorei seu trabalho! Tem como fazer um descontinho?';
+    case 'Cliente diz que está caro':
+      return 'Amei o bolo, mas achei um pouco caro 😅';
+    case 'Não sei como conduzir a conversa':
+      return 'Queria um bolo para sábado. Quanto fica?';
     default:
       return 'Olá! Gostaria de fazer um orçamento.';
   }
@@ -67,7 +67,7 @@ Instruções:
 - O tom de voz desejado pela confeiteira é: "{{{confectionerTone}}}"
 - A resposta deve ser concisa e focada em resolver a objeção ou pergunta da cliente, mantendo o tom.
 
-Exemplos de resposta para a objeção de preço (Cliente que acha caro e some) e diferentes tons:
+Exemplos de resposta para a objeção de preço (Cliente diz que está caro) e diferentes tons:
 
 Tom: Carinhosa, cheia de amor
 Cliente: "Amei o bolo mas achei caro 😅"

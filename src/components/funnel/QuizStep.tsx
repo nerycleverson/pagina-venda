@@ -1,89 +1,128 @@
-
 "use client"
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-const QUESTIONS = [
+export const QUESTIONS = [
   {
-    text: "Você vende doces ou bolos hoje?",
+    eyebrow: "Primeiro, seu momento atual",
+    text: "Hoje, em que fase está sua confeitaria?",
     options: [
-      "É minha renda principal",
-      "Faço como renda extra",
-      "Tô começando agora",
-      "Só faço pra família"
+      "É minha principal fonte de renda",
+      "É uma renda extra importante",
+      "Estou começando a vender agora",
+      "Ainda faço só para família e amigos"
     ]
   },
   {
-    text: "Quantas clientes te chamam no WhatsApp por semana?",
+    eyebrow: "Sobre seu WhatsApp",
+    text: "Em uma semana comum, quantas clientes chegam no seu WhatsApp?",
     options: [
-      "Até 5",
-      "6 a 15",
-      "16 a 30",
-      "Mais de 30"
+      "Até 5 clientes",
+      "De 6 a 15 clientes",
+      "De 16 a 30 clientes",
+      "Mais de 30 clientes"
     ]
   },
   {
-    text: "O que mais te trava nas conversas?",
+    eyebrow: "Onde você mais perde clientes",
+    text: "Em qual dessas situações você sente que mais perde clientes?",
     options: [
-      "Cliente que acha caro e some",
-      "Cliente que pede desconto e eu não seguro",
-      "Demoro pra responder e perco a venda",
-      "Travo no que escrever pra não parecer robô"
+      "Cliente recebe o preço e some",
+      "Cliente pede desconto",
+      "Cliente diz que está caro",
+      "Não sei como conduzir a conversa"
     ]
   },
   {
-    text: "Quando uma cliente some depois do preço, como você se sente?",
+    eyebrow: "Seu jeito também importa",
+    text: "Se você pudesse responder melhor suas clientes hoje, como queria soar?",
     options: [
-      "Frustrada, sinto que perdi dinheiro",
-      "Insegura, será que cobrei demais?",
-      "Sem tempo pra ficar pensando em resposta"
-    ]
-  },
-  {
-    text: "Como você gosta de falar com suas clientes?",
-    options: [
-      "Super carinhosa, cheia de amor",
+      "Carinhosa, cheia de amor",
       "Direta e profissional",
       "Descontraída e brincalhona"
     ]
   },
   {
-    text: "Se existisse uma IA que respondesse suas clientes no seu lugar, com a SUA voz, você usaria?",
+    eyebrow: "Última pergunta",
+    text: "O que faria mais diferença no seu atendimento hoje?",
     options: [
-      "Sim, ontem!",
-      "Sim, se for fácil",
-      "Talvez, preciso ver"
+      "Responder mais rápido",
+      "Defender meu preço com segurança",
+      "Ter ajuda nas conversas difíceis",
+      "Tudo isso, sem perder meu jeito"
     ]
   }
 ];
 
 interface QuizStepProps {
   index: number;
+  currentAnswer?: string;
   onAnswer: (index: number, answer: string) => void;
 }
 
-export function QuizStep({ index, onAnswer }: QuizStepProps) {
+export function QuizStep({ index, currentAnswer, onAnswer }: QuizStepProps) {
   const question = QUESTIONS[index];
+  const [selected, setSelected] = useState<string | null>(currentAnswer || null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    setSelected(currentAnswer || null);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [currentAnswer, index]);
+
+  const choose = (option: string) => {
+    if (timeoutRef.current) return;
+    setSelected(option);
+    timeoutRef.current = setTimeout(() => onAnswer(index, option), 220);
+  };
 
   return (
-    <div className="space-y-8 py-4">
-      <h2 className="text-2xl font-bold text-center px-4 leading-snug">
-        {question.text}
-      </h2>
-
-      <div className="grid gap-4 px-2">
-        {question.options.map((option, i) => (
-          <Button
-            key={i}
-            variant="outline"
-            className="w-full h-16 text-left justify-start px-6 text-lg border-2 hover:border-primary hover:bg-secondary rounded-lg transition-all active:scale-[0.98]"
-            onClick={() => onAnswer(index, option)}
-          >
-            {option}
-          </Button>
-        ))}
+    <div className="pb-8 pt-2">
+      <div className="mb-7 px-2 text-center">
+        <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+          {question.eyebrow}
+        </p>
+        <h2 className="text-3xl font-bold leading-tight text-foreground">
+          {question.text}
+        </h2>
       </div>
+
+      <div className="grid gap-3">
+        {question.options.map((option, i) => {
+          const isSelected = selected === option;
+          return (
+            <button
+              type="button"
+              key={option}
+              onClick={() => choose(option)}
+              className={cn(
+                "group flex min-h-[68px] w-full items-center gap-4 rounded-2xl border-2 bg-white px-4 py-3 text-left text-base font-bold shadow-sm transition-all active:scale-[0.99]",
+                isSelected
+                  ? "border-primary bg-primary/5 text-primary shadow-md shadow-primary/10"
+                  : "border-transparent hover:border-primary/30 hover:shadow-md"
+              )}
+            >
+              <span
+                className={cn(
+                  "grid h-9 w-9 shrink-0 place-items-center rounded-xl text-sm font-bold transition-colors",
+                  isSelected ? "bg-primary text-white" : "bg-muted text-primary group-hover:bg-primary/10"
+                )}
+              >
+                {isSelected ? <Check className="h-4 w-4" /> : String.fromCharCode(65 + i)}
+              </span>
+              <span className="leading-snug">{option}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="mt-5 text-center text-xs text-muted-foreground">
+        Toque em uma resposta para continuar
+      </p>
     </div>
   );
 }

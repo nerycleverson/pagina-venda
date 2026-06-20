@@ -1,120 +1,101 @@
-
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
+import { ArrowRight, BadgeCheck, PlayCircle, Smartphone, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { simulateWhatsappResponse, type SimulateWhatsappResponseInput } from '@/ai/flows/simulate-whatsapp-response';
-import { Check, CheckCheck } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
 
 interface DemoStepProps {
-  answers: Record<number, string>;
   onNext: () => void;
 }
 
-export function DemoStep({ answers, onNext }: DemoStepProps) {
-  const [loading, setLoading] = useState(true);
-  const [demoData, setDemoData] = useState<{ customerMessage: string; aiResponse: string } | null>(null);
-  const [showAgentMessage, setShowAgentMessage] = useState(false);
-  const [typingText, setTypingText] = useState("");
-  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 
-  const painPoint = answers[2] as SimulateWhatsappResponseInput['customerObjection'];
-  const tone = answers[4] as SimulateWhatsappResponseInput['confectionerTone'];
+export function DemoStep({ onNext }: DemoStepProps) {
+  const [videoError, setVideoError] = useState(false);
+  const [started, setStarted] = useState(false);
 
-  useEffect(() => {
-    async function loadDemo() {
-      try {
-        const result = await simulateWhatsappResponse({
-          customerObjection: painPoint || 'Cliente que acha caro e some',
-          confectionerTone: tone || 'Carinhosa, cheia de amor',
-        });
-        setDemoData(result);
-        setLoading(false);
-        
-        // Start showing the agent message after a short delay once loaded
-        setTimeout(() => setShowAgentMessage(true), 1500);
-      } catch (err) {
-        console.error("Failed to simulate", err);
-        setLoading(false);
-      }
+  const handlePlay = () => {
+    if (!started) {
+      setStarted(true);
+      trackEvent("demo_video_started");
     }
-    loadDemo();
-  }, [painPoint, tone]);
+  };
 
-  useEffect(() => {
-    if (showAgentMessage && demoData) {
-      let currentIdx = 0;
-      const fullText = demoData.aiResponse;
-      
-      typingIntervalRef.current = setInterval(() => {
-        if (currentIdx < fullText.length) {
-          setTypingText(fullText.substring(0, currentIdx + 1));
-          currentIdx++;
-        } else {
-          if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-        }
-      }, 30);
-    }
-    return () => {
-      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
-    };
-  }, [showAgentMessage, demoData]);
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center space-y-4 py-20">
-        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        <p className="font-bold text-primary animate-pulse">Criando sua demonstração...</p>
-      </div>
-    );
-  }
+  const handleContinue = () => {
+    trackEvent("demo_continued", { video_started: started });
+    onNext();
+  };
 
   return (
-    <div className="space-y-8 py-4">
-      <div className="text-center px-4 space-y-2">
-        <h2 className="text-2xl font-bold text-primary">Veja como funciona:</h2>
-        <p className="text-muted-foreground">Sua cliente te chama com a dor que você escolheu...</p>
+    <div className="space-y-6 pb-8 pt-3">
+      <div className="text-center">
+        <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-primary">
+          Agora, na prática
+        </p>
+        <h2 className="text-3xl font-bold leading-tight">
+          Veja uma confeiteira usando o DoceZap no atendimento
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+          Ela mostra a mensagem da cliente, a resposta criada e como usa o resultado no dia a dia.
+        </p>
       </div>
 
-      <div className="bg-white/50 rounded-lg p-6 shadow-sm border space-y-4 relative overflow-hidden min-h-[300px]">
-        {/* Customer Bubble */}
-        <div className="flex justify-start">
-          <div className="relative bg-whatsapp-client text-foreground p-3 rounded-lg max-w-[85%] chat-bubble-tail-client shadow-sm">
-            <p className="text-sm">{demoData?.customerMessage}</p>
-            <div className="flex justify-end items-center gap-1 mt-1">
-              <span className="text-[10px] opacity-60">14:32</span>
-            </div>
-          </div>
-        </div>
-
-        {/* AI Agent Bubble */}
-        {showAgentMessage && (
-          <div className="flex justify-end animate-fade-in">
-            <div className="relative bg-whatsapp-bg text-whatsapp-text p-3 rounded-lg max-w-[85%] chat-bubble-tail-agent shadow-sm">
-              <p className="text-sm leading-relaxed min-h-[1em]">
-                {typingText}
-                {typingText.length < (demoData?.aiResponse.length || 0) && (
-                  <span className="animate-pulse">|</span>
-                )}
-              </p>
-              <div className="flex justify-end items-center gap-1 mt-1">
-                <span className="text-[10px] opacity-60">14:33</span>
-                <CheckCheck className="w-3 h-3 text-blue-500" />
+      <div className="mx-auto w-full max-w-[310px] overflow-hidden rounded-[30px] border-[6px] border-foreground bg-foreground shadow-2xl shadow-primary/20">
+        <div className="aspect-[9/16] w-full bg-[#171717]">
+          {videoError ? (
+            <div className="flex h-full flex-col items-center justify-center gap-4 px-6 text-center text-white">
+              <PlayCircle className="h-14 w-14 text-white/70" />
+              <div>
+                <p className="font-bold">Vídeo demonstrativo</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/60">
+                  Adicione o arquivo demonstracao-docezap.mp4 na pasta public/videos.
+                </p>
               </div>
             </div>
-          </div>
-        )}
+          ) : (
+            <video
+              className="h-full w-full object-cover"
+              controls
+              playsInline
+              preload="metadata"
+              poster="/videos/capa-demonstracao.jpg"
+              onPlay={handlePlay}
+              onEnded={() => trackEvent("demo_video_completed")}
+              onError={() => setVideoError(true)}
+              aria-label="Demonstração do DoceZap por uma confeiteira"
+            >
+              <source src={VIDEO_SRC} type="video/mp4" />
+              Seu navegador não consegue reproduzir este vídeo.
+            </video>
+          )}
+        </div>
       </div>
 
-      <div className="px-4">
-        <Button 
-          onClick={onNext} 
-          disabled={typingText.length < (demoData?.aiResponse.length || 0)}
-          className="w-full h-16 text-xl rounded-lg font-bold shadow-lg bg-accent hover:bg-accent/90 transition-all"
-        >
-          Ver o que isso muda pra mim
-        </Button>
+      <div className="grid grid-cols-3 gap-2">
+        {[
+          { icon: BadgeCheck, text: "Uso real" },
+          { icon: Smartphone, text: "Mostra a tela" },
+          { icon: Volume2, text: "Explicação curta" }
+        ].map(({ icon: Icon, text }) => (
+          <div key={text} className="rounded-2xl border bg-white p-3 text-center shadow-sm">
+            <Icon className="mx-auto mb-2 h-4 w-4 text-primary" />
+            <p className="text-[11px] font-bold leading-tight">{text}</p>
+          </div>
+        ))}
       </div>
+
+      <Button
+        onClick={handleContinue}
+        className="h-16 w-full rounded-2xl text-lg font-bold shadow-lg shadow-primary/20"
+      >
+        Ver meu plano recomendado
+        <ArrowRight className="h-5 w-5" />
+      </Button>
+
+      <p className="text-center text-xs text-muted-foreground">
+        Você pode continuar mesmo sem assistir ao vídeo inteiro.
+      </p>
     </div>
   );
 }

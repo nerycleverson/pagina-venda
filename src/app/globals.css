@@ -34,10 +34,22 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(179, 91, 81, 0.08), transparent 26rem),
+      radial-gradient(circle at 88% 34%, rgba(200, 155, 60, 0.07), transparent 24rem);
+    background-attachment: fixed;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline;
   }
+}
+
+.chat-surface {
+  background-color: #efeae2;
+  background-image:
+    radial-gradient(circle at 18px 18px, rgba(7, 94, 84, 0.035) 2px, transparent 2px),
+    radial-gradient(circle at 42px 42px, rgba(7, 94, 84, 0.025) 2px, transparent 2px);
+  background-size: 60px 60px;
 }
 
 .chat-bubble-tail-client::after {
@@ -60,4 +72,15 @@
   height: 12px;
   background-color: inherit;
   clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

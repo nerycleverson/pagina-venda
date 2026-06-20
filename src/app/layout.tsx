@@ -1,10 +1,11 @@
 
 import type {Metadata} from 'next';
 import './globals.css';
+import { Analytics } from '@/components/Analytics';
 
 export const metadata: Metadata = {
-  title: 'DoceZap IA - Seu Assistente de Vendas',
-  description: 'Feche mais vendas no WhatsApp com inteligência artificial para confeiteiras.',
+  title: 'DoceZap IA | Respostas para vender melhor no WhatsApp',
+  description: 'Descubra como responder clientes, defender seu preço e conduzir encomendas no WhatsApp com ajuda da IA.',
 };
 
 export default function RootLayout({
@@ -20,6 +21,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background text-foreground min-h-screen">
+        <Analytics />
         {children}
       </body>
     </html>

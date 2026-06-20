@@ -1,17 +1,16 @@
-
 "use client"
 
 import React from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Zap } from 'lucide-react';
+import { CheckCircle2, Crown } from 'lucide-react';
 
 interface PremiumPopupProps {
   isOpen: boolean;
@@ -22,40 +21,55 @@ interface PremiumPopupProps {
 
 export function PremiumPopup({ isOpen, onClose, onAccept, onDecline }: PremiumPopupProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] border-none shadow-2xl bg-white p-8 rounded-lg">
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-accent w-20 h-20 rounded-full flex items-center justify-center shadow-lg border-4 border-white">
-          <Sparkles className="text-white w-10 h-10" />
-        </div>
-        
-        <DialogHeader className="pt-8 space-y-4">
-          <DialogTitle className="text-2xl font-bold text-center text-primary leading-tight">
-            Espera! Aproveite esta oferta única
+    <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+      <DialogContent className="max-h-[92vh] overflow-y-auto rounded-3xl border-none bg-white p-6 shadow-2xl sm:max-w-[425px] sm:p-8">
+        <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-accent/15 text-accent">
+          <Crown className="h-8 w-8" />
+        </span>
+
+        <DialogHeader className="space-y-3 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Antes de seguir</p>
+          <DialogTitle className="text-center text-2xl font-bold leading-tight text-foreground">
+            Por R$ 8,90 a mais, você leva mais que o dobro de respostas
           </DialogTitle>
-          <DialogDescription className="text-center text-lg text-foreground">
-            Por apenas <b className="text-accent">R$ 9 a mais</b> que o Básico, leve o <b className="text-primary">Premium</b> com sua voz e o dobro de respostas.
+          <DialogDescription className="text-center text-base leading-relaxed text-muted-foreground">
+            E ainda configura o DoceZap para responder com o seu jeito de falar.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="bg-accent/5 p-4 rounded-lg border border-accent/20 my-4 text-center">
-          <p className="text-sm text-muted-foreground line-through">De R$ 29,90</p>
-          <p className="text-3xl font-bold text-accent">R$ 24,00</p>
-          <p className="text-xs font-bold text-accent uppercase tracking-widest mt-1">Oferta Exclusiva Agora</p>
+        <div className="my-2 rounded-2xl border-2 border-accent bg-accent/5 p-5">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-accent">Premium nesta oferta</p>
+              <p className="mt-1 text-3xl font-bold text-accent">R$ 23,90</p>
+            </div>
+            <p className="text-sm text-muted-foreground line-through">R$ 29,90</p>
+          </div>
+          <ul className="mt-4 space-y-2.5 text-sm">
+            {[
+              "70 respostas em vez de 30",
+              "Voz personalizada da sua confeitaria",
+              "As mesmas 9 situações liberadas",
+              "Acesso por 30 dias, sem renovação"
+            ].map(item => (
+              <li key={item} className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-600" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <DialogFooter className="flex flex-col gap-3 sm:flex-col pt-4">
-          <Button 
-            onClick={onAccept}
-            className="w-full h-14 text-lg font-bold rounded-lg bg-accent hover:bg-accent/90"
-          >
-            Quero o Premium por R$ 24
+        <DialogFooter className="flex flex-col gap-3 sm:flex-col">
+          <Button onClick={onAccept} className="h-14 w-full rounded-2xl text-base font-bold">
+            Quero o Premium por R$ 23,90
           </Button>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={onDecline}
-            className="w-full h-12 text-muted-foreground hover:bg-transparent"
+            className="h-11 w-full text-sm text-muted-foreground hover:bg-transparent hover:text-foreground"
           >
-            Não, prefiro o Básico
+            Continuar com o Básico por R$ 15
           </Button>
         </DialogFooter>
       </DialogContent>
