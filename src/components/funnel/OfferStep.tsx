@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ArrowRight, CheckCircle2, Crown, LockKeyhole, MailCheck, MessageSquare, RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { trackEvent } from '@/lib/analytics';
+import { trackEvent, trackTikTokEvent } from '@/lib/analytics';
 import { PremiumPopup } from './PremiumPopup';
 
 interface OfferStepProps {
@@ -16,6 +16,33 @@ const CHECKOUT_LINKS = {
   premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E",
   premiumSpecial: "https://checkout.chocolaterende.com/VCCL1O8SD38J"
 };
+
+const TIKTOK_PRODUCTS = {
+  basic: {
+    content_id: "VCCL1O8SD38D",
+    content_name: "DoceZap Básico - 30 respostas",
+    content_type: "product",
+    value: 15,
+    currency: "BRL",
+    quantity: 1,
+  },
+  premium: {
+    content_id: "VCCL1O8SD38E",
+    content_name: "DoceZap Premium - 70 respostas",
+    content_type: "product",
+    value: 29.9,
+    currency: "BRL",
+    quantity: 1,
+  },
+  premium_special: {
+    content_id: "VCCL1O8SD38J",
+    content_name: "DoceZap Premium - oferta",
+    content_type: "product",
+    value: 23.9,
+    currency: "BRL",
+    quantity: 1,
+  },
+} as const;
 
 const PAIN_LABELS: Record<string, string> = {
   "Cliente recebe o preço e some": "retomar clientes depois do orçamento",
@@ -67,14 +94,17 @@ export function OfferStep({ answers }: OfferStepProps) {
       ];
 
   useEffect(() => {
+    const recommendedPlan = isPremiumRecommended ? "premium" : "basic";
     trackEvent("offer_viewed", {
-      recommended_plan: isPremiumRecommended ? "premium" : "basic",
+      recommended_plan: recommendedPlan,
       volume,
     });
+    trackTikTokEvent("ViewContent", TIKTOK_PRODUCTS[recommendedPlan]);
   }, [isPremiumRecommended, volume]);
 
   const goToCheckout = (planId: "basic" | "premium" | "premium_special", url: string, source: string) => {
     trackEvent("checkout_clicked", { plan: planId, source });
+    trackTikTokEvent("InitiateCheckout", TIKTOK_PRODUCTS[planId]);
     window.location.href = url;
   };
 
