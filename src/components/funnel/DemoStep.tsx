@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, BadgeCheck, PlayCircle, Smartphone, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackEvent } from '@/lib/analytics';
@@ -14,6 +14,12 @@ const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 export function DemoStep({ onNext }: DemoStepProps) {
   const [videoError, setVideoError] = useState(false);
   const [started, setStarted] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const progressMilestones = useRef(new Set<number>());
+
+  useEffect(() => {
+    trackEvent("demo_viewed");
+  }, []);
 
   const handlePlay = () => {
     if (!started) {
@@ -23,8 +29,35 @@ export function DemoStep({ onNext }: DemoStepProps) {
   };
 
   const handleContinue = () => {
-    trackEvent("demo_continued", { video_started: started });
+    const reachedMilestones = Array.from(progressMilestones.current);
+    const highestProgress = reachedMilestones.length > 0
+      ? Math.max(...reachedMilestones)
+      : 0;
+
+    trackEvent("demo_continued", {
+      video_started: started,
+      video_completed: completed,
+      highest_progress: highestProgress,
+    });
     onNext();
+  };
+
+  const handleTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+    if (!video.duration) return;
+
+    const progress = (video.currentTime / video.duration) * 100;
+    [25, 50, 75].forEach((milestone) => {
+      if (progress >= milestone && !progressMilestones.current.has(milestone)) {
+        progressMilestones.current.add(milestone);
+        trackEvent("demo_video_progress", { percent: milestone });
+      }
+    });
+  };
+
+  const handleEnded = () => {
+    setCompleted(true);
+    trackEvent("demo_video_completed");
   };
 
   return (
@@ -61,7 +94,8 @@ export function DemoStep({ onNext }: DemoStepProps) {
               preload="metadata"
               poster="/videos/capa-demonstracao.jpg"
               onPlay={handlePlay}
-              onEnded={() => trackEvent("demo_video_completed")}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={handleEnded}
               onError={() => setVideoError(true)}
               aria-label="Demonstração do DoceZap por uma confeiteira"
             >

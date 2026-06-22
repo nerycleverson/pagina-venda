@@ -28,4 +28,6 @@ export function trackEvent(name: string, params: AnalyticsParams = {}) {
   if (typeof window.fbq === "function") {
     window.fbq("trackCustom", name, params);
   }
+
+  window.ttq?.track?.(name, params);
 }

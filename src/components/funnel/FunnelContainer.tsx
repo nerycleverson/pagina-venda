@@ -1,7 +1,7 @@
 
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IntroStep } from './IntroStep';
 import { QuizStep } from './QuizStep';
 import { DiagnosisStep } from './DiagnosisStep';
@@ -19,6 +19,7 @@ export type FunnelState = {
 };
 
 export default function FunnelContainer() {
+  const quizCompletedTracked = useRef(false);
   const [state, setState] = useState<FunnelState>({
     currentStep: 'intro',
     currentQuestionIndex: 0,
@@ -59,6 +60,12 @@ export default function FunnelContainer() {
         currentQuestionIndex: prev.currentQuestionIndex + 1,
       }));
     } else {
+      if (!quizCompletedTracked.current) {
+        quizCompletedTracked.current = true;
+        trackEvent("quiz_completed", {
+          total_questions: totalQuestions,
+        });
+      }
       setState(prev => ({
         ...prev,
         answers: nextAnswers,
