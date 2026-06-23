@@ -3,17 +3,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { IntroStep } from './IntroStep';
-import { QuizStep } from './QuizStep';
+import { QuizStep, QUESTIONS } from './QuizStep';
 import { DiagnosisStep } from './DiagnosisStep';
 import { ResponseStep } from './ResponseStep';
-import { DemoStep } from './DemoStep';
 import { OfferStep } from './OfferStep';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
 export type FunnelState = {
-  currentStep: 'intro' | 'quiz' | 'diagnosis' | 'response' | 'demo' | 'offer';
+  currentStep: 'intro' | 'quiz' | 'diagnosis' | 'response' | 'offer';
   currentQuestionIndex: number;
   answers: Record<number, string>;
 };
@@ -26,7 +25,32 @@ export default function FunnelContainer() {
     answers: {},
   });
 
-  const totalQuestions = 5;
+  const totalQuestions = QUESTIONS.length;
+
+  useEffect(() => {
+    const trackOncePerSession = (eventName: string) => {
+      const sessionKey = `docezap_${eventName}`;
+
+      try {
+        if (window.sessionStorage.getItem(sessionKey)) return;
+        window.sessionStorage.setItem(sessionKey, "true");
+      } catch {
+        // Se o navegador bloquear o armazenamento, ainda registramos a visita atual.
+      }
+
+      trackEvent(eventName);
+    };
+
+    trackOncePerSession("landing_session_started");
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const source = searchParams.get("utm_source")?.toLowerCase() || "";
+    const cameFromTikTokAd = searchParams.has("ttclid") || source.includes("tiktok");
+
+    if (cameFromTikTokAd) {
+      trackOncePerSession("tiktok_ad_landing_session_started");
+    }
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -97,10 +121,6 @@ export default function FunnelContainer() {
   };
 
   const handleResponseComplete = () => {
-    setState(prev => ({ ...prev, currentStep: 'demo' }));
-  };
-
-  const handleDemoComplete = () => {
     setState(prev => ({ ...prev, currentStep: 'offer' }));
   };
 
@@ -165,9 +185,7 @@ export default function FunnelContainer() {
             onNext={handleResponseComplete}
           />
         )}
-        {state.currentStep === 'demo' && (
-          <DemoStep onNext={handleDemoComplete} />
-        )}
+
         {state.currentStep === 'offer' && (
           <OfferStep answers={state.answers} />
         )}
