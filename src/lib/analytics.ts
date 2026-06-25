@@ -1,5 +1,10 @@
 type AnalyticsParams = Record<string, string | number | boolean | undefined>;
 
+const META_STANDARD_EVENTS: Record<string, string> = {
+  checkout_clicked: "InitiateCheckout",
+  offer_viewed: "ViewContent",
+};
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -26,6 +31,10 @@ export function trackEvent(name: string, params: AnalyticsParams = {}) {
   }
 
   if (typeof window.fbq === "function") {
+    const metaStandardEvent = META_STANDARD_EVENTS[name];
+    if (metaStandardEvent) {
+      window.fbq("track", metaStandardEvent, params);
+    }
     window.fbq("trackCustom", name, params);
   }
 

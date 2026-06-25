@@ -4,6 +4,7 @@ export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const tiktokPixelId = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
+  const utmifyPixelId = process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID;
 
   const gaScript =
     "window.dataLayer = window.dataLayer || [];" +
@@ -32,6 +33,14 @@ export function Analytics() {
     "a.src=r+'?sdkid='+e+'&lib='+t;var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(a,s)};" +
     "ttq.load(" + JSON.stringify(tiktokPixelId) + ");ttq.page();}(window,document,'ttq');";
 
+  const utmifyScript =
+    "window.pixelId = " + JSON.stringify(utmifyPixelId) + ";" +
+    "var a = document.createElement('script');" +
+    "a.setAttribute('async', '');" +
+    "a.setAttribute('defer', '');" +
+    "a.setAttribute('src', 'https://cdn.utmify.com.br/scripts/pixel/pixel.js');" +
+    "document.head.appendChild(a);";
+
   return (
     <>
       {gaId && (
@@ -44,10 +53,25 @@ export function Analytics() {
         </>
       )}
       {metaPixelId && (
-        <Script id="meta-pixel-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: metaScript }} />
+        <>
+          <Script id="meta-pixel-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: metaScript }} />
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+              alt=""
+            />
+          </noscript>
+        </>
       )}
       {tiktokPixelId && (
         <Script id="tiktok-pixel-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: tiktokScript }} />
+      )}
+      {utmifyPixelId && (
+        <Script id="utmify-pixel-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: utmifyScript }} />
       )}
     </>
   );
