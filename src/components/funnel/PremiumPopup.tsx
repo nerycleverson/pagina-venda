@@ -30,7 +30,7 @@ export function PremiumPopup({ isOpen, onClose, onAccept, onDecline }: PremiumPo
         <DialogHeader className="space-y-3 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Antes de seguir</p>
           <DialogTitle className="text-center text-2xl font-bold leading-tight text-foreground">
-            Por R$ 8,90 a mais, você leva mais que o dobro de respostas
+            Por R$ 4,00 a mais, você leva mais que o dobro de respostas
           </DialogTitle>
           <DialogDescription className="text-center text-base leading-relaxed text-muted-foreground">
             E ainda configura o DoceZap para responder com o seu jeito de falar.
@@ -62,14 +62,14 @@ export function PremiumPopup({ isOpen, onClose, onAccept, onDecline }: PremiumPo
 
         <DialogFooter className="flex flex-col gap-3 sm:flex-col">
           <Button onClick={onAccept} className="h-14 w-full rounded-2xl text-base font-bold">
-            Quero o Premium por R$ 23,90
+            Comprar Premium
           </Button>
           <Button
             variant="ghost"
             onClick={onDecline}
             className="h-11 w-full text-sm text-muted-foreground hover:bg-transparent hover:text-foreground"
           >
-            Continuar com o Básico por R$ 15
+            Comprar Básico
           </Button>
         </DialogFooter>
       </DialogContent>

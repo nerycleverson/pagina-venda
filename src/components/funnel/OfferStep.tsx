@@ -22,7 +22,7 @@ const TIKTOK_PRODUCTS = {
     content_id: "VCCL1O8SD38D",
     content_name: "DoceZap Básico - 30 respostas",
     content_type: "product",
-    value: 15,
+    value: 19.9,
     currency: "BRL",
     quantity: 1,
   },
@@ -67,8 +67,7 @@ export function OfferStep({ answers }: OfferStepProps) {
     goal === "Tudo isso, sem perder meu jeito";
 
   const plan = isPremiumRecommended ? "PREMIUM" : "BÁSICO";
-  const price = isPremiumRecommended ? "R$ 29,90" : "R$ 15,00";
-  const responseCount = isPremiumRecommended ? 70 : 30;
+  const price = isPremiumRecommended ? "R$ 29,90" : "R$ 19,90";
   const painLabel = PAIN_LABELS[pain] || "lidar com conversas difíceis";
 
   const recommendationReason = isPremiumRecommended
@@ -172,7 +171,7 @@ export function OfferStep({ answers }: OfferStepProps) {
             onClick={handleCheckout}
             className="h-16 w-full rounded-2xl text-lg font-bold shadow-lg shadow-primary/20"
           >
-            Quero {responseCount} respostas
+            {isPremiumRecommended ? "Comprar Premium" : "Comprar Básico"}
             <ArrowRight className="h-5 w-5" />
           </Button>
 
@@ -201,7 +200,7 @@ export function OfferStep({ answers }: OfferStepProps) {
               </p>
               <h3 className="mt-1 text-xl font-bold">Pacote Básico</h3>
             </div>
-            <span className="shrink-0 text-2xl font-bold text-primary">R$ 15</span>
+            <span className="shrink-0 text-2xl font-bold text-primary">R$ 19,90</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Você recebe 30 respostas e pode usar as mesmas 9 situações. Ele usa o tom caloroso padrão do DoceZap, sem a voz personalizada do Premium.
@@ -211,7 +210,7 @@ export function OfferStep({ answers }: OfferStepProps) {
             onClick={() => goToCheckout("basic", CHECKOUT_LINKS.basic, "premium_alternative")}
             className="mt-4 h-12 w-full rounded-2xl border-2 border-primary/30 bg-white font-bold text-primary hover:bg-primary/5 hover:text-primary"
           >
-            Começar pelo Básico por R$ 15
+            Comprar Básico
           </Button>
         </div>
       )}

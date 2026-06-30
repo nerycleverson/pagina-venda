@@ -48,7 +48,7 @@ const PRODUCTS = {
     content_id: "VCCL1O8SD38D",
     content_name: "DoceZap Básico - 30 respostas",
     content_type: "product",
-    value: 15,
+    value: 19.9,
     currency: "BRL",
     quantity: 1,
   },
@@ -202,7 +202,7 @@ export function DemoLanding() {
               onClick={() => goToCheckout("premium", "hero")}
               className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
             >
-              Quero 70 respostas
+              Comprar Premium
               <ArrowRight className="h-5 w-5" />
             </Button>
             <button
@@ -217,7 +217,7 @@ export function DemoLanding() {
 
           <div className="grid grid-cols-3 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Premium R$29,90</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Básico R$15</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Básico R$19,90</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Garantia 7 dias</span>
           </div>
         </div>
@@ -317,7 +317,7 @@ export function DemoLanding() {
             eyebrow="Mais vendido para quem atende todo dia"
             price="R$29,90"
             description="70 respostas por 30 dias, com voz personalizada para soar mais parecido com você."
-            ctaLabel="Quero o Premium"
+            ctaLabel="Comprar Premium"
             recommended
             onCheckout={goToCheckout}
           />
@@ -325,9 +325,9 @@ export function DemoLanding() {
             plan="basic"
             title="Básico"
             eyebrow="Entrada barata para testar"
-            price="R$15"
+            price="R$19,90"
             description="30 respostas por 30 dias, com o tom caloroso padrão do DoceZap."
-            ctaLabel="Começar pelo Básico"
+            ctaLabel="Comprar Básico"
             onCheckout={goToCheckout}
           />
         </div>
@@ -408,7 +408,7 @@ export function DemoLanding() {
             onClick={() => goToCheckout("premium", "sticky_cta")}
             className="h-12 shrink-0 rounded-2xl px-5 text-sm font-bold shadow-lg shadow-primary/20"
           >
-            Premium
+            Comprar Premium
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
