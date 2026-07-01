@@ -38,9 +38,9 @@ const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 const PRODUCTS = {
   premium: {
     content_id: "VCCL1O8SD38E",
-    content_name: "DoceZap Premium - 70 respostas",
+    content_name: "DoceZap Premium + Kit Atendimento que Rende",
     content_type: "product",
-    value: 29.9,
+    value: 49.9,
     currency: "BRL",
     quantity: 1,
   },
@@ -56,27 +56,34 @@ const PRODUCTS = {
 
 type PlanId = keyof typeof CHECKOUT_LINKS;
 
-const SHARED_PLAN_FEATURES = [
-  "As mesmas 9 situações principais do DoceZap",
-  "Funciona para orçamento, desconto, preço, indecisão e pós-venda",
-  "Você revisa, ajusta e envia manualmente pelo WhatsApp",
-  "Acesso pelo navegador, sem instalar aplicativo",
-];
-
 const PLAN_FEATURES: Record<PlanId, string[]> = {
   premium: [
-    "70 respostas para usar em 30 dias",
-    "Voz personalizada da sua confeitaria",
-    "Mais folga para quem atende clientes todos os dias",
-    "Melhor custo por resposta",
+    "70 respostas por 30 dias",
+    "Voz mais personalizada para sua confeitaria",
+    "Respostas para desconto, preço, cliente indecisa e pós-orçamento",
+    "Combinados da Encomenda",
+    "Cardápio que Rende",
+    "Datas que Rende",
+    "Melhor custo por material",
   ],
   basic: [
-    "30 respostas para usar em 30 dias",
-    "Tom caloroso padrão do DoceZap",
-    "Bom para testar na rotina sem gastar muito",
+    "30 respostas por 30 dias",
+    "Tom padrão do DoceZap",
+    "Bom para situações simples",
+    "Acesso pelo navegador",
     "Pagamento único, sem assinatura automática",
   ],
 };
+
+const PLAN_COMPARISON = [
+  { feature: "Respostas para WhatsApp", basic: "30", premium: "70" },
+  { feature: "Voz personalizada", basic: "Não", premium: "Sim" },
+  { feature: "Situações difíceis de venda", basic: "Básico", premium: "Completo" },
+  { feature: "Combinados da Encomenda", basic: "Não", premium: "Sim" },
+  { feature: "Cardápio que Rende", basic: "Não", premium: "Sim" },
+  { feature: "Datas que Rende", basic: "Não", premium: "Sim" },
+  { feature: "Pagamento único", basic: "Sim", premium: "Sim" },
+];
 
 const SITUATIONS: Situation[] = [
   {
@@ -84,8 +91,8 @@ const SITUATIONS: Situation[] = [
     label: "Cliente pediu desconto",
     customer: "Adorei seu trabalho! Tem como fazer um descontinho?",
     response:
-      "Que bom que você amou! 🥰 Esse valor de R$ 120 já é o preço justo pelo que esse pedido exige: ingredientes, tempo e tudo feito sob encomenda só pra você. Não tem margem pra cortar sem comprometer o resultado. Se quiser encaixar num valor menor, a gente pode ajustar o tamanho ou o recheio, me fala o que prefere e eu te mostro uma opção.",
-    note: "Mantém seu preço sem soar grossa.",
+      "Que bom que você gostou! Esse valor já considera ingredientes, tempo e o cuidado para entregar tudo bem feito. Se quiser, posso te mostrar uma opção menor para caber melhor no orçamento sem perder a apresentação.",
+    note: "Você revisa, ajusta e copia antes de mandar.",
   },
   {
     id: "expensive",
@@ -182,18 +189,21 @@ export function DemoLanding() {
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-white shadow-md shadow-primary/20">
               <Sparkles className="h-5 w-5" />
             </span>
-            <span className="text-lg font-bold">DoceZap IA</span>
+            <div>
+              <span className="block text-lg font-bold leading-none">DoceZap</span>
+              <span className="text-xs font-bold text-primary/70">respostas prontas para WhatsApp</span>
+            </div>
           </div>
 
           <div className="space-y-4">
             <p className="inline-flex rounded-full border border-primary/15 bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-primary shadow-sm">
               Para confeiteiras que vendem pelo WhatsApp
             </p>
-            <h1 className="max-w-xl text-4xl font-bold leading-[1.04] text-foreground sm:text-5xl lg:text-6xl">
-              Cliente pediu desconto ou disse que está caro?
+            <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
+              Respostas, cardápio e combinados prontos para atender melhor no WhatsApp da confeitaria
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              O DoceZap cria uma resposta pronta para você revisar, copiar e mandar.
+              O DoceZap te ajuda a responder cliente que pede desconto, acha caro ou some depois do orçamento — e o Premium ainda vem com materiais para organizar cardápio, sinal, confirmação e regras da encomenda sem parecer grossa.
             </p>
           </div>
 
@@ -202,7 +212,7 @@ export function DemoLanding() {
               onClick={() => goToCheckout("premium", "hero")}
               className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
             >
-              Comprar Premium
+              Quero o kit completo
               <ArrowRight className="h-5 w-5" />
             </Button>
             <button
@@ -215,10 +225,11 @@ export function DemoLanding() {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Premium R$29,90</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Básico R$19,90</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Garantia 7 dias</span>
+          <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Você revisa antes de enviar</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Não responde sozinho</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Feito para situações reais de venda</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Pagamento único</span>
           </div>
         </div>
 
@@ -237,9 +248,9 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/65">
         <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Respostas firmes sem perder o carinho",
-            "Texto pronto para copiar no WhatsApp",
-            "Você revisa antes de enviar",
+            "Resposta pronta sem perder o carinho",
+            "Cardápio e combinados mais claros",
+            "Você revisa tudo antes de enviar",
           ].map((text) => (
             <div key={text} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-green-700" />
@@ -251,10 +262,10 @@ export function DemoLanding() {
 
       <section className="mx-auto grid max-w-6xl gap-6 px-4 py-9 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="space-y-4">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Prova rápida</p>
-          <h2 className="text-3xl font-bold leading-tight">Veja antes de comprar.</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Como funciona</p>
+          <h2 className="text-3xl font-bold leading-tight">Veja como funciona antes de comprar.</h2>
           <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-            Um vídeo curto mostra a ferramenta na prática. Se já entendeu, o botão de compra continua logo abaixo.
+            Cole a mensagem difícil da cliente, escolha a situação e receba uma sugestão de resposta para revisar, copiar e mandar pelo WhatsApp.
           </p>
           <Button
             variant="outline"
@@ -286,9 +297,9 @@ export function DemoLanding() {
           ) : (
             <div className="grid gap-3 sm:grid-cols-3">
               {[
-                { icon: MessageCircle, title: "Cole", text: "a mensagem difícil" },
-                { icon: Wand2, title: "Gere", text: "uma resposta pronta" },
-                { icon: Copy, title: "Copie", text: "e envie manualmente" },
+                { icon: MessageCircle, title: "Cole", text: "a mensagem da cliente" },
+                { icon: Wand2, title: "Escolha", text: "a situação" },
+                { icon: Copy, title: "Revise", text: "e copie a resposta" },
               ].map(({ icon: Icon, title, text }) => (
                 <div key={title} className="rounded-2xl bg-muted/55 p-4 text-center">
                   <Icon className="mx-auto mb-3 h-6 w-6 text-primary" />
@@ -304,20 +315,20 @@ export function DemoLanding() {
       <section id="planos" className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
         <div className="mx-auto mb-5 max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Escolha seu pacote</p>
-          <h2 className="mt-2 text-3xl font-bold leading-tight">Premium para ter mais folga. Básico para começar.</h2>
+          <h2 className="mt-2 text-3xl font-bold leading-tight">Escolha como quer organizar seu atendimento</h2>
           <p className="mt-3 text-sm font-medium leading-relaxed text-muted-foreground sm:text-base">
-            Os dois cobrem as principais conversas de venda. A diferença é quantidade de respostas, personalização e ritmo de uso.
+            O Básico serve para testar o DoceZap. O Premium é para quem quer um kit mais completo para responder, combinar encomendas e deixar o atendimento mais claro.
           </p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
           <PlanCard
             plan="premium"
-            title="Premium"
-            eyebrow="Mais vendido para quem atende todo dia"
-            price="R$29,90"
-            description="70 respostas por 30 dias, com voz personalizada para soar mais parecido com você."
-            ctaLabel="Comprar Premium"
+            title="Premium + Kit Atendimento que Rende"
+            eyebrow="Mais indicado"
+            price="R$49,90"
+            description="Para confeiteiras que atendem clientes todos os dias e querem mais segurança para responder, combinar pedidos e organizar o WhatsApp."
+            ctaLabel="Comprar Premium + Kit"
             recommended
             onCheckout={goToCheckout}
           />
@@ -326,37 +337,13 @@ export function DemoLanding() {
             title="Básico"
             eyebrow="Entrada barata para testar"
             price="R$19,90"
-            description="30 respostas por 30 dias, com o tom caloroso padrão do DoceZap."
+            description="Entrada simples para testar o DoceZap em situações comuns do WhatsApp."
             ctaLabel="Comprar Básico"
             onCheckout={goToCheckout}
           />
         </div>
 
-        <div className="mt-4 rounded-3xl border border-primary/10 bg-white p-5 shadow-sm">
-          <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-primary">Nos dois pacotes</p>
-          <div className="grid gap-3 text-sm font-medium sm:grid-cols-2">
-            {SHARED_PLAN_FEATURES.map((text) => (
-              <div key={text} className="flex items-start gap-2">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-700" />
-                <span>{text}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 border-t pt-4 text-center text-[11px] font-bold leading-tight text-muted-foreground">
-            <span className="flex flex-col items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-green-700" />
-              Checkout seguro
-            </span>
-            <span className="flex flex-col items-center gap-1.5">
-              <BadgeCheck className="h-4 w-4 text-green-700" />
-              Acesso por e-mail
-            </span>
-            <span className="flex flex-col items-center gap-1.5">
-              <RotateCcw className="h-4 w-4 text-green-700" />
-              Garantia 7 dias
-            </span>
-          </div>
-        </div>
+        <PlanComparison />
       </section>
 
       <section className="mx-auto max-w-3xl px-4 pb-12 sm:px-6">
@@ -366,25 +353,31 @@ export function DemoLanding() {
             <AccordionItem value="automatic">
               <AccordionTrigger className="text-left">O DoceZap responde sozinho?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. Ele cria a resposta e você revisa, copia e envia manualmente pelo WhatsApp.
+                Não. Ele cria uma sugestão de resposta para você revisar, ajustar, copiar e mandar manualmente pelo WhatsApp.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="install">
               <AccordionTrigger className="text-left">Preciso instalar aplicativo?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. Você usa pelo navegador do celular ou computador.
+                Não. O acesso é pelo navegador.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="renewal">
               <AccordionTrigger className="text-left">É assinatura?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. É pagamento único, com acesso por 30 dias. Não renova sozinho.
+                Não. É pagamento único. O acesso ao DoceZap é por 30 dias conforme o plano escolhido.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="premium">
+              <AccordionTrigger className="text-left">O Premium vale mais a pena que o Básico?</AccordionTrigger>
+              <AccordionContent className="leading-relaxed text-muted-foreground">
+                Sim, se você atende clientes com frequência. O Básico serve para testar. O Premium vem com mais respostas, voz personalizada e materiais extras para organizar atendimento, cardápio e combinados da encomenda.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="guarantee" className="border-b-0">
               <AccordionTrigger className="text-left">Tem garantia?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Sim. Você tem 7 dias para testar e pedir reembolso se não fizer sentido para você.
+                Sim. Você tem 7 dias de garantia.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -392,23 +385,23 @@ export function DemoLanding() {
       </section>
 
       <footer className="mx-auto max-w-lg px-6 pb-8 text-center text-xs leading-relaxed text-muted-foreground">
-        <p>© 2026 DoceZap IA • Todos os direitos reservados.</p>
+        <p>© 2026 DoceZap • Todos os direitos reservados.</p>
         <p className="mt-2">
-          O DoceZap IA é um assistente de escrita. Preço, disponibilidade e políticas continuam sendo confirmados por você.
+          O DoceZap ajuda você a preparar respostas e materiais de atendimento. Preço, disponibilidade e combinados continuam sendo confirmados por você.
         </p>
       </footer>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-bold text-muted-foreground">DoceZap Premium</p>
-            <p className="text-sm font-bold text-foreground">R$29,90 • 70 respostas</p>
+            <p className="truncate text-xs font-bold text-muted-foreground">DoceZap Premium + Kit Atendimento que Rende</p>
+            <p className="text-sm font-bold text-foreground">R$49,90</p>
           </div>
           <Button
             onClick={() => goToCheckout("premium", "sticky_cta")}
             className="h-12 shrink-0 rounded-2xl px-5 text-sm font-bold shadow-lg shadow-primary/20"
           >
-            Comprar Premium
+            Comprar Premium + Kit
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
@@ -444,17 +437,16 @@ function PlanCard({
           : "border border-primary/10"
       }`}
     >
-      {recommended && (
-        <div className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white shadow-md shadow-primary/20">
-          <Sparkles className="h-3.5 w-3.5" />
-          Recomendado
-        </div>
-      )}
-
-      <div className={recommended ? "pr-24" : ""}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">{eyebrow}</p>
-        <h3 className="mt-2 text-2xl font-bold text-foreground">{title}</h3>
+        {recommended && (
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-bold text-white shadow-md shadow-primary/20">
+            <Sparkles className="h-3.5 w-3.5" />
+            Mais indicado
+          </div>
+        )}
       </div>
+      <h3 className="mt-2 text-2xl font-bold leading-tight text-foreground">{title}</h3>
 
       <div className="mt-5">
         <p className={`text-5xl font-bold ${recommended ? "text-primary" : "text-foreground"}`}>{price}</p>
@@ -488,6 +480,55 @@ function PlanCard({
   );
 }
 
+function PlanComparison() {
+  return (
+    <div className="mt-4 rounded-3xl border border-primary/10 bg-white p-5 shadow-sm">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Compare rápido</p>
+          <h3 className="mt-1 text-xl font-bold">Básico ou Premium?</h3>
+        </div>
+        <div className="rounded-2xl bg-green-50 px-3 py-2 text-xs font-bold text-green-800">
+          Os dois são pagamento único
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="grid grid-cols-[1.2fr_0.75fr_0.85fr] gap-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+          <span>Item</span>
+          <span className="text-center">Básico</span>
+          <span className="text-center text-primary">Premium</span>
+        </div>
+        {PLAN_COMPARISON.map((row) => (
+          <div
+            key={row.feature}
+            className="grid grid-cols-[1.2fr_0.75fr_0.85fr] items-center gap-2 rounded-2xl bg-muted/45 px-3 py-3 text-sm font-medium"
+          >
+            <span className="leading-snug">{row.feature}</span>
+            <span className="text-center text-muted-foreground">{row.basic}</span>
+            <span className="text-center font-bold text-primary">{row.premium}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-2 border-t pt-4 text-center text-[11px] font-bold leading-tight text-muted-foreground">
+        <span className="flex flex-col items-center gap-1.5">
+          <ShieldCheck className="h-4 w-4 text-green-700" />
+          Checkout seguro
+        </span>
+        <span className="flex flex-col items-center gap-1.5">
+          <BadgeCheck className="h-4 w-4 text-green-700" />
+          Acesso por e-mail
+        </span>
+        <span className="flex flex-col items-center gap-1.5">
+          <RotateCcw className="h-4 w-4 text-green-700" />
+          Garantia 7 dias
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function DemoPanel({
   selected,
   selectedId,
@@ -514,7 +555,7 @@ function DemoPanel({
           <div className="flex items-center gap-3">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 text-xs font-bold">DZ</span>
             <div>
-              <p className="text-sm font-bold">DoceZap IA</p>
+              <p className="text-sm font-bold">DoceZap</p>
               <p className="text-[11px] text-white/75">resposta pronta para WhatsApp</p>
             </div>
           </div>

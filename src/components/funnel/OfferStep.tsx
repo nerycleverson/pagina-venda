@@ -1,11 +1,10 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { ArrowRight, CheckCircle2, Crown, LockKeyhole, MailCheck, MessageSquare, RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { trackEvent, trackTikTokEvent } from '@/lib/analytics';
-import { PremiumPopup } from './PremiumPopup';
 
 interface OfferStepProps {
   answers: Record<number, string>;
@@ -13,8 +12,7 @@ interface OfferStepProps {
 
 const CHECKOUT_LINKS = {
   basic: "https://checkout.chocolaterende.com/VCCL1O8SD38D",
-  premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E",
-  premiumSpecial: "https://checkout.chocolaterende.com/VCCL1O8SD38J"
+  premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E"
 };
 
 const TIKTOK_PRODUCTS = {
@@ -28,17 +26,9 @@ const TIKTOK_PRODUCTS = {
   },
   premium: {
     content_id: "VCCL1O8SD38E",
-    content_name: "DoceZap Premium - 70 respostas",
+    content_name: "DoceZap Premium + Kit Atendimento que Rende",
     content_type: "product",
-    value: 29.9,
-    currency: "BRL",
-    quantity: 1,
-  },
-  premium_special: {
-    content_id: "VCCL1O8SD38J",
-    content_name: "DoceZap Premium - oferta",
-    content_type: "product",
-    value: 23.9,
+    value: 49.9,
     currency: "BRL",
     quantity: 1,
   },
@@ -52,8 +42,6 @@ const PAIN_LABELS: Record<string, string> = {
 };
 
 export function OfferStep({ answers }: OfferStepProps) {
-  const [showUpsell, setShowUpsell] = useState(false);
-
   const stage = answers[0] || "";
   const volume = answers[1] || "";
   const pain = answers[2] || "";
@@ -67,22 +55,23 @@ export function OfferStep({ answers }: OfferStepProps) {
     goal === "Tudo isso, sem perder meu jeito";
 
   const plan = isPremiumRecommended ? "PREMIUM" : "BÁSICO";
-  const price = isPremiumRecommended ? "R$ 29,90" : "R$ 19,90";
+  const price = isPremiumRecommended ? "R$ 49,90" : "R$ 19,90";
   const painLabel = PAIN_LABELS[pain] || "lidar com conversas difíceis";
 
   const recommendationReason = isPremiumRecommended
     ? volume === "De 16 a 30 clientes" || volume === "Mais de 30 clientes"
-      ? "Como chegam " + volume.toLowerCase() + " por semana, o Premium dá mais respostas e mantém o mesmo jeito de falar em todo atendimento."
-      : "Você disse que quer responder melhor sem perder seu jeito. No Premium, você configura a voz do DoceZap para ele responder mais parecido com você."
+      ? "Como chegam " + volume.toLowerCase() + " por semana, o Premium dá mais respostas e materiais para organizar o atendimento."
+      : "Você disse que quer responder melhor sem perder seu jeito. No Premium, você configura a voz do DoceZap e ainda recebe materiais para cardápio e combinados."
     : "Como chegam " + volume.toLowerCase() + " por semana, o Básico já dá conta do seu atendimento sem você pagar por respostas que talvez ainda não use.";
 
   const features = isPremiumRecommended
     ? [
         "70 respostas para usar durante 30 dias",
-        "Voz personalizada no estilo " + tone.toLowerCase(),
-        "As 9 situações de atendimento liberadas",
-        "Resposta principal, versão curta e próximo passo",
-        "Histórico para reencontrar suas melhores respostas"
+        "Voz mais personalizada no estilo " + tone.toLowerCase(),
+        "Respostas para desconto, preço, cliente indecisa e pós-orçamento",
+        "Combinados da Encomenda",
+        "Cardápio que Rende",
+        "Datas que Rende"
       ]
     : [
         "30 respostas para usar durante 30 dias",
@@ -101,7 +90,7 @@ export function OfferStep({ answers }: OfferStepProps) {
     trackTikTokEvent("ViewContent", TIKTOK_PRODUCTS[recommendedPlan]);
   }, [isPremiumRecommended, volume]);
 
-  const goToCheckout = (planId: "basic" | "premium" | "premium_special", url: string, source: string) => {
+  const goToCheckout = (planId: "basic" | "premium", url: string, source: string) => {
     trackEvent("checkout_clicked", { plan: planId, source });
     trackTikTokEvent("InitiateCheckout", TIKTOK_PRODUCTS[planId]);
     window.location.href = url;
@@ -112,8 +101,7 @@ export function OfferStep({ answers }: OfferStepProps) {
       goToCheckout("premium", CHECKOUT_LINKS.premium, "recommended_offer");
       return;
     }
-    trackEvent("premium_upsell_opened");
-    setShowUpsell(true);
+    goToCheckout("basic", CHECKOUT_LINKS.basic, "recommended_offer");
   };
 
   return (
@@ -171,7 +159,7 @@ export function OfferStep({ answers }: OfferStepProps) {
             onClick={handleCheckout}
             className="h-16 w-full rounded-2xl text-lg font-bold shadow-lg shadow-primary/20"
           >
-            {isPremiumRecommended ? "Comprar Premium" : "Comprar Básico"}
+            {isPremiumRecommended ? "Comprar Premium + Kit" : "Comprar Básico"}
             <ArrowRight className="h-5 w-5" />
           </Button>
 
@@ -203,7 +191,7 @@ export function OfferStep({ answers }: OfferStepProps) {
             <span className="shrink-0 text-2xl font-bold text-primary">R$ 19,90</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Você recebe 30 respostas e pode usar as mesmas 9 situações. Ele usa o tom caloroso padrão do DoceZap, sem a voz personalizada do Premium.
+            Você recebe 30 respostas para testar situações comuns do WhatsApp. O Premium é mais completo para organizar atendimento, cardápio e combinados.
           </p>
           <Button
             variant="outline"
@@ -254,13 +242,6 @@ export function OfferStep({ answers }: OfferStepProps) {
       <p className="px-4 text-center text-xs leading-relaxed text-muted-foreground">
         O DoceZap ajuda você a escrever respostas melhores. Informações como preço, disponibilidade e políticas continuam sendo confirmadas por você.
       </p>
-
-      <PremiumPopup
-        isOpen={showUpsell}
-        onClose={() => setShowUpsell(false)}
-        onAccept={() => goToCheckout("premium_special", CHECKOUT_LINKS.premiumSpecial, "upsell_accept")}
-        onDecline={() => goToCheckout("basic", CHECKOUT_LINKS.basic, "upsell_decline")}
-      />
     </div>
   );
 }
