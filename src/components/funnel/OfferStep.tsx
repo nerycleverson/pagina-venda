@@ -4,7 +4,12 @@ import React, { useEffect } from 'react';
 import { ArrowRight, CheckCircle2, Crown, LockKeyhole, MailCheck, MessageSquare, RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { trackEvent, trackTikTokEvent } from '@/lib/analytics';
+import {
+  buildCheckoutUrlWithCurrentParams,
+  trackEvent,
+  trackMetaInitiateCheckout,
+  trackTikTokEvent,
+} from '@/lib/analytics';
 
 interface OfferStepProps {
   answers: Record<number, string>;
@@ -14,6 +19,7 @@ const CHECKOUT_LINKS = {
   basic: "https://checkout.chocolaterende.com/VCCL1O8SD38D",
   premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E"
 };
+const CHECKOUT_REDIRECT_DELAY_MS = 400;
 
 const TIKTOK_PRODUCTS = {
   basic: {
@@ -91,9 +97,14 @@ export function OfferStep({ answers }: OfferStepProps) {
   }, [isPremiumRecommended, volume]);
 
   const goToCheckout = (planId: "basic" | "premium", url: string, source: string) => {
+    trackMetaInitiateCheckout(planId);
     trackEvent("checkout_clicked", { plan: planId, source });
     trackTikTokEvent("InitiateCheckout", TIKTOK_PRODUCTS[planId]);
-    window.location.href = url;
+    const checkoutUrl = buildCheckoutUrlWithCurrentParams(url);
+
+    window.setTimeout(() => {
+      window.location.href = checkoutUrl;
+    }, CHECKOUT_REDIRECT_DELAY_MS);
   };
 
   const handleCheckout = () => {

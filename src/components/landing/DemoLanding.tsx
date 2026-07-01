@@ -17,7 +17,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { trackEvent, trackTikTokEvent } from "@/lib/analytics";
+import {
+  buildCheckoutUrlWithCurrentParams,
+  trackEvent,
+  trackMetaInitiateCheckout,
+  trackTikTokEvent,
+} from "@/lib/analytics";
 
 type SituationId = "discount" | "expensive" | "ghosted";
 
@@ -33,6 +38,7 @@ const CHECKOUT_LINKS = {
   premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E",
   basic: "https://checkout.chocolaterende.com/VCCL1O8SD38D",
 } as const;
+const CHECKOUT_REDIRECT_DELAY_MS = 400;
 const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 
 const PRODUCTS = {
@@ -182,9 +188,14 @@ export function DemoLanding() {
   };
 
   const goToCheckout = (plan: PlanId, source: string) => {
+    trackMetaInitiateCheckout(plan);
     trackEvent("checkout_clicked", { plan, source });
     trackTikTokEvent("InitiateCheckout", PRODUCTS[plan]);
-    window.location.href = CHECKOUT_LINKS[plan];
+    const checkoutUrl = buildCheckoutUrlWithCurrentParams(CHECKOUT_LINKS[plan]);
+
+    window.setTimeout(() => {
+      window.location.href = checkoutUrl;
+    }, CHECKOUT_REDIRECT_DELAY_MS);
   };
 
   const toggleVideo = () => {
