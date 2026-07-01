@@ -105,7 +105,7 @@ const SITUATIONS: Situation[] = [
     label: "Cliente pediu desconto",
     customer: "Adorei seu trabalho! Tem como fazer um descontinho?",
     response:
-      "Que bom que você gostou! Esse valor já considera ingredientes, tempo e o cuidado para entregar tudo bem feito. Se quiser, posso te mostrar uma opção menor para caber melhor no orçamento sem perder a apresentação.",
+      "Fico feliz que você amou! 😊 Esse já é meu valor final e justo pra esse bolo de ninho do jeito que ele é. Se o orçamento apertar, a gente pode ajustar o tamanho ou o recheio pra chegar num valor diferente. Quer que eu te mostre uma opção assim, ou prefere garantir o sábado com ele desse jeito mesmo?",
     note: "Você revisa, ajusta e copia antes de mandar.",
   },
   {
