@@ -69,9 +69,9 @@ export function OfferStep({ answers }: OfferStepProps) {
         "70 respostas para usar durante 30 dias",
         "Voz mais personalizada no estilo " + tone.toLowerCase(),
         "Respostas para desconto, preço, cliente indecisa e pós-orçamento",
-        "Combinados da Encomenda",
-        "Cardápio que Rende",
-        "Datas que Rende"
+        "Combinados da Encomenda para combinar sinal, pagamento, alterações e entrega",
+        "Cardápio que Rende para montar um cardápio claro, com rendimento, preço, prazo e próximo passo",
+        "Datas que Rende para planejar campanhas, limites de encomendas e divulgação"
       ]
     : [
         "30 respostas para usar durante 30 dias",

@@ -56,22 +56,36 @@ const PRODUCTS = {
 
 type PlanId = keyof typeof CHECKOUT_LINKS;
 
-const PLAN_FEATURES: Record<PlanId, string[]> = {
+type PlanFeature = {
+  title: string;
+  description?: string;
+};
+
+const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
   premium: [
-    "70 respostas por 30 dias",
-    "Voz mais personalizada para sua confeitaria",
-    "Respostas para desconto, preço, cliente indecisa e pós-orçamento",
-    "Combinados da Encomenda",
-    "Cardápio que Rende",
-    "Datas que Rende",
-    "Melhor custo por material",
+    { title: "70 respostas por 30 dias" },
+    { title: "Voz mais personalizada para sua confeitaria" },
+    { title: "Respostas para desconto, preço, cliente indecisa e pós-orçamento" },
+    {
+      title: "Combinados da Encomenda",
+      description: "Mensagens e checklist para combinar sinal, pagamento restante, alterações, cancelamento, retirada e entrega antes de produzir.",
+    },
+    {
+      title: "Cardápio que Rende",
+      description: "Um guia para montar um cardápio claro no celular, com descrição, rendimento, preço, prazo e próximo passo para a cliente pedir.",
+    },
+    {
+      title: "Datas que Rende",
+      description: "Um planejamento para escolher datas que combinam com sua produção, definir limite de encomendas, prazos e ideias de divulgação.",
+    },
+    { title: "Tudo em um só pacote, sem escolher vários adicionais" },
   ],
   basic: [
-    "30 respostas por 30 dias",
-    "Tom padrão do DoceZap",
-    "Bom para situações simples",
-    "Acesso pelo navegador",
-    "Pagamento único, sem assinatura automática",
+    { title: "30 respostas por 30 dias" },
+    { title: "Tom padrão do DoceZap" },
+    { title: "Bom para situações simples" },
+    { title: "Acesso pelo navegador" },
+    { title: "Pagamento único, sem assinatura automática" },
   ],
 };
 
@@ -191,7 +205,7 @@ export function DemoLanding() {
             </span>
             <div>
               <span className="block text-lg font-bold leading-none">DoceZap</span>
-              <span className="text-xs font-bold text-primary/70">respostas prontas para WhatsApp</span>
+              <span className="text-xs font-bold text-primary/70">respostas melhores no WhatsApp</span>
             </div>
           </div>
 
@@ -200,7 +214,7 @@ export function DemoLanding() {
               Para confeiteiras que vendem pelo WhatsApp
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
-              Respostas, cardápio e combinados prontos para atender melhor no WhatsApp da confeitaria
+              Atenda melhor no WhatsApp da sua confeitaria
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
               O DoceZap te ajuda a responder cliente que pede desconto, acha caro ou some depois do orçamento — e o Premium ainda vem com materiais para organizar cardápio, sinal, confirmação e regras da encomenda sem parecer grossa.
@@ -212,7 +226,7 @@ export function DemoLanding() {
               onClick={() => goToCheckout("premium", "hero")}
               className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
             >
-              Quero o kit completo
+              Comprar Premium + Kit
               <ArrowRight className="h-5 w-5" />
             </Button>
             <button
@@ -248,7 +262,7 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/65">
         <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Resposta pronta sem perder o carinho",
+            "Respostas melhores sem perder o carinho",
             "Cardápio e combinados mais claros",
             "Você revisa tudo antes de enviar",
           ].map((text) => (
@@ -456,10 +470,17 @@ function PlanCard({
       <p className="mt-4 text-sm font-medium leading-relaxed text-muted-foreground">{description}</p>
 
       <ul className="mt-5 grid gap-3 text-sm font-medium">
-        {PLAN_FEATURES[plan].map((text) => (
-          <li key={text} className="flex items-start gap-2">
+        {PLAN_FEATURES[plan].map((feature) => (
+          <li key={feature.title} className="flex items-start gap-2">
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-green-700" />
-            <span>{text}</span>
+            <span>
+              <span className="block">{feature.title}</span>
+              {feature.description && (
+                <span className="mt-1 block text-xs font-medium leading-relaxed text-muted-foreground">
+                  {feature.description}
+                </span>
+              )}
+            </span>
           </li>
         ))}
       </ul>
@@ -556,7 +577,7 @@ function DemoPanel({
             <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 text-xs font-bold">DZ</span>
             <div>
               <p className="text-sm font-bold">DoceZap</p>
-              <p className="text-[11px] text-white/75">resposta pronta para WhatsApp</p>
+              <p className="text-[11px] text-white/75">respostas melhores no WhatsApp</p>
             </div>
           </div>
           <Sparkles className="h-5 w-5 text-white/80" />
