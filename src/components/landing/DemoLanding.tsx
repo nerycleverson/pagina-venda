@@ -44,7 +44,7 @@ const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 const PRODUCTS = {
   premium: {
     content_id: "VCCL1O8SD38E",
-    content_name: "DoceZap Premium + Kit Atendimento que Rende",
+    content_name: "Kit WhatsApp da Confeitaria",
     content_type: "product",
     value: 49.9,
     currency: "BRL",
@@ -69,7 +69,8 @@ type PlanFeature = {
 
 const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
   premium: [
-    { title: "70 respostas por 30 dias" },
+    { title: "Inclui DoceZap Premium por 30 dias" },
+    { title: "70 respostas melhores para WhatsApp" },
     { title: "Voz mais personalizada para sua confeitaria" },
     { title: "Respostas para desconto, preço, cliente indecisa e pós-orçamento" },
     {
@@ -84,7 +85,7 @@ const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
       title: "Datas que Rende",
       description: "Um planejamento para escolher datas que combinam com sua produção, definir limite de encomendas, prazos e ideias de divulgação.",
     },
-    { title: "Tudo em um só pacote, sem escolher vários adicionais" },
+    { title: "Pagamento único, sem assinatura automática" },
   ],
   basic: [
     { title: "30 respostas por 30 dias" },
@@ -96,8 +97,9 @@ const PLAN_FEATURES: Record<PlanId, PlanFeature[]> = {
 };
 
 const PLAN_COMPARISON = [
-  { feature: "Respostas para WhatsApp", basic: "30", premium: "70" },
-  { feature: "Voz personalizada", basic: "Não", premium: "Sim" },
+  { feature: "Respostas melhores no WhatsApp", basic: "30", premium: "70" },
+  { feature: "DoceZap por 30 dias", basic: "Básico", premium: "Premium" },
+  { feature: "Voz mais personalizada", basic: "Não", premium: "Sim" },
   { feature: "Situações difíceis de venda", basic: "Básico", premium: "Completo" },
   { feature: "Combinados da Encomenda", basic: "Não", premium: "Sim" },
   { feature: "Cardápio que Rende", basic: "Não", premium: "Sim" },
@@ -225,10 +227,10 @@ export function DemoLanding() {
               Para confeiteiras que vendem pelo WhatsApp
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
-              Atenda melhor no WhatsApp da sua confeitaria
+              Organize o WhatsApp da sua confeitaria sem depender do improviso
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              O DoceZap te ajuda a responder cliente que pede desconto, acha caro ou some depois do orçamento — e o Premium ainda vem com materiais para organizar cardápio, sinal, confirmação e regras da encomenda sem parecer grossa.
+              O Kit WhatsApp da Confeitaria reúne respostas melhores, combinados de encomenda, cardápio e datas para atender com mais segurança. Inclui DoceZap Premium por 30 dias para adaptar as mensagens ao seu jeito.
             </p>
           </div>
 
@@ -237,7 +239,7 @@ export function DemoLanding() {
               onClick={() => goToCheckout("premium", "hero")}
               className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
             >
-              Comprar Premium + Kit
+              Comprar Kit Completo
               <ArrowRight className="h-5 w-5" />
             </Button>
             <button
@@ -253,7 +255,7 @@ export function DemoLanding() {
           <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Você revisa antes de enviar</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Não responde sozinho</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Feito para situações reais de venda</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Inclui DoceZap Premium</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Pagamento único</span>
           </div>
         </div>
@@ -273,8 +275,8 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/65">
         <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Respostas melhores sem perder o carinho",
-            "Cardápio e combinados mais claros",
+            "Kit feito para confeitaria",
+            "Cardápio, combinados e datas mais claros",
             "Você revisa tudo antes de enviar",
           ].map((text) => (
             <div key={text} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
@@ -340,29 +342,29 @@ export function DemoLanding() {
       <section id="planos" className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
         <div className="mx-auto mb-5 max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Escolha seu pacote</p>
-          <h2 className="mt-2 text-3xl font-bold leading-tight">Escolha como quer organizar seu atendimento</h2>
+          <h2 className="mt-2 text-3xl font-bold leading-tight">Escolha entre testar o DoceZap ou pegar o kit completo</h2>
           <p className="mt-3 text-sm font-medium leading-relaxed text-muted-foreground sm:text-base">
-            O Básico serve para testar o DoceZap. O Premium é para quem quer um kit mais completo para responder, combinar encomendas e deixar o atendimento mais claro.
+            O DoceZap Básico serve para testar respostas melhores. O Kit WhatsApp da Confeitaria é para organizar o atendimento completo: respostas, combinados, cardápio e datas.
           </p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
           <PlanCard
             plan="premium"
-            title="Premium + Kit Atendimento que Rende"
+            title="Kit WhatsApp da Confeitaria"
             eyebrow="Mais indicado"
             price="R$49,90"
-            description="Para confeiteiras que atendem clientes todos os dias e querem mais segurança para responder, combinar pedidos e organizar o WhatsApp."
-            ctaLabel="Comprar Premium + Kit"
+            description="Para confeiteiras que querem tirar o atendimento do improviso: responder melhor, combinar encomendas com clareza e deixar cardápio e datas mais organizados."
+            ctaLabel="Comprar Kit Completo"
             recommended
             onCheckout={goToCheckout}
           />
           <PlanCard
             plan="basic"
-            title="Básico"
+            title="DoceZap Básico"
             eyebrow="Entrada barata para testar"
             price="R$19,90"
-            description="Entrada simples para testar o DoceZap em situações comuns do WhatsApp."
+            description="Entrada simples para testar respostas melhores no WhatsApp sem pegar o kit completo."
             ctaLabel="Comprar Básico"
             onCheckout={goToCheckout}
           />
@@ -381,6 +383,12 @@ export function DemoLanding() {
                 Não. Ele cria uma sugestão de resposta para você revisar, ajustar, copiar e mandar manualmente pelo WhatsApp.
               </AccordionContent>
             </AccordionItem>
+            <AccordionItem value="kit">
+              <AccordionTrigger className="text-left">O que vem no Kit WhatsApp da Confeitaria?</AccordionTrigger>
+              <AccordionContent className="leading-relaxed text-muted-foreground">
+                Ele inclui DoceZap Premium por 30 dias, 70 respostas melhores, voz mais personalizada e materiais para combinados de encomenda, cardápio e datas.
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="install">
               <AccordionTrigger className="text-left">Preciso instalar aplicativo?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
@@ -394,9 +402,9 @@ export function DemoLanding() {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="premium">
-              <AccordionTrigger className="text-left">O Premium vale mais a pena que o Básico?</AccordionTrigger>
+              <AccordionTrigger className="text-left">Qual a diferença entre o Básico e o Kit?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Sim, se você atende clientes com frequência. O Básico serve para testar. O Premium vem com mais respostas, voz personalizada e materiais extras para organizar atendimento, cardápio e combinados da encomenda.
+                O Básico serve para testar respostas melhores no WhatsApp. O Kit é mais completo: inclui DoceZap Premium, mais respostas, voz personalizada e materiais para organizar atendimento, cardápio, datas e combinados.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="guarantee" className="border-b-0">
@@ -412,21 +420,21 @@ export function DemoLanding() {
       <footer className="mx-auto max-w-lg px-6 pb-8 text-center text-xs leading-relaxed text-muted-foreground">
         <p>© 2026 DoceZap • Todos os direitos reservados.</p>
         <p className="mt-2">
-          O DoceZap ajuda você a preparar respostas e materiais de atendimento. Preço, disponibilidade e combinados continuam sendo confirmados por você.
+          O Kit WhatsApp da Confeitaria ajuda você a preparar respostas e materiais de atendimento. Preço, disponibilidade e combinados continuam sendo confirmados por você.
         </p>
       </footer>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-bold text-muted-foreground">DoceZap Premium + Kit Atendimento que Rende</p>
+            <p className="truncate text-xs font-bold text-muted-foreground">Kit WhatsApp da Confeitaria</p>
             <p className="text-sm font-bold text-foreground">R$49,90</p>
           </div>
           <Button
             onClick={() => goToCheckout("premium", "sticky_cta")}
             className="h-12 shrink-0 rounded-2xl px-5 text-sm font-bold shadow-lg shadow-primary/20"
           >
-            Comprar Premium + Kit
+            Comprar Kit Completo
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
@@ -518,7 +526,7 @@ function PlanComparison() {
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Compare rápido</p>
-          <h3 className="mt-1 text-xl font-bold">Básico ou Premium?</h3>
+          <h3 className="mt-1 text-xl font-bold">Básico ou kit completo?</h3>
         </div>
         <div className="rounded-2xl bg-green-50 px-3 py-2 text-xs font-bold text-green-800">
           Os dois são pagamento único
@@ -529,7 +537,7 @@ function PlanComparison() {
         <div className="grid grid-cols-[1.2fr_0.75fr_0.85fr] gap-2 px-3 text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
           <span>Item</span>
           <span className="text-center">Básico</span>
-          <span className="text-center text-primary">Premium</span>
+          <span className="text-center text-primary">Kit</span>
         </div>
         {PLAN_COMPARISON.map((row) => (
           <div

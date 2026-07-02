@@ -4,8 +4,8 @@ import './globals.css';
 import { Analytics } from '@/components/Analytics';
 
 export const metadata: Metadata = {
-  title: 'DoceZap | Atendimento para confeiteiras no WhatsApp',
-  description: 'Respostas melhores, cardápio e combinados para atender clientes de encomendas pelo WhatsApp.',
+  title: 'Kit WhatsApp da Confeitaria | DoceZap',
+  description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
 };
 
 export default function RootLayout({
