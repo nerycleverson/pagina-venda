@@ -132,7 +132,7 @@ export default function FunnelContainer() {
             <span className="grid h-8 w-8 place-items-center rounded-xl bg-primary text-white shadow-sm">
               <Sparkles className="h-4 w-4" />
             </span>
-            <span>DoceZap IA</span>
+            <span>DoceZap</span>
           </div>
           <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
             Diagnóstico gratuito

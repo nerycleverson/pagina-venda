@@ -15,7 +15,7 @@ export function IntroStep({ onStart }: IntroStepProps) {
         <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-white shadow-md shadow-primary/20">
           <Sparkles className="h-5 w-5" />
         </span>
-        <span className="text-lg">DoceZap IA</span>
+        <span className="text-lg">DoceZap</span>
       </div>
 
       <div className="text-center">

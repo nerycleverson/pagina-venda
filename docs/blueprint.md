@@ -1,4 +1,4 @@
-# **App Name**: DoceZap IA
+# **App Name**: DoceZap
 
 ## Core Features:
 
@@ -6,7 +6,7 @@
 - Live AI Persona Simulator: An interactive tool that simulates a WhatsApp chat, demonstrating how the AI crafts responses based on the user's selected personality (Carinhosa, Direta, or Divertida).
 - Real-time 'Typing' Animation: Dynamic text animation in the demo chat to visually mimic an active assistant responding in real-time.
 - Smart Plan Recommendation Engine: Logic that analyzes quiz responses to automatically display the most relevant offer (Basic vs. Premium) or a Lead Magnet if appropriate.
-- Exit-Intent Offer Popup: A strategically timed conversion modal offering the Premium plan at a discounted rate for high-value prospects.
+- Premium Kit Offer: A clear Premium plan that bundles more responses with practical materials for menu, dates and order agreements.
 - Mobile-First Quiz Architecture: A touch-optimized interface featuring a linear progress bar and large gesture-friendly buttons for easy smartphone navigation.
 - Lead Capture Gateway: A secondary funnel path for beginners or skeptical users to sign up for a 3-response free trial without commitment.
 

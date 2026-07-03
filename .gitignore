@@ -29,6 +29,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+dev-server*.log
+.modified
+.idx/
 
 # vercel
 .vercel
@@ -42,7 +45,6 @@ next-env.d.ts
 
 # firebase
 firebase-debug.log
-firestore-debug.log*.zip
-*.tar.gz
+firestore-debug.log
 *.zip
 *.tar.gz

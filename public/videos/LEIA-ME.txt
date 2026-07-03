@@ -1,0 +1,19 @@
+Coloque o vídeo final nesta pasta com o nome:
+
+demonstracao-docezap.mp4
+
+Formato recomendado:
+- Vertical 9:16
+- MP4 com codec H.264
+- Entre 30 e 45 segundos
+- Até 12 MB, se possível
+- Legendas gravadas no próprio vídeo
+
+Roteiro simples:
+1. A confeiteira aparece e diz qual mensagem difícil recebeu.
+2. Ela mostra a mensagem sendo colocada no DoceZap.
+3. Ela mostra a resposta criada.
+4. Ela explica, em uma frase, por que a resposta ajudou.
+5. Ela encerra mostrando que a mensagem ficou pronta para copiar.
+
+Evite promessas de faturamento. O ponto forte do vídeo é mostrar o uso real.

@@ -1,0 +1,141 @@
+{
+  "product": {
+    "name": "DoceZap",
+    "category": "kit de atendimento para confeiteiras no WhatsApp",
+    "audience": "confeiteiras brasileiras que vendem por encomenda e precisam responder clientes no WhatsApp",
+    "core_promise": "ajudar a escrever respostas melhores e entregar materiais para organizar cardapio, combinados, sinal, confirmacao e regras da encomenda",
+    "offer": {
+      "entry_price": "R$ 19,90",
+      "premium_price": "R$ 49,90",
+      "premium_name": "DoceZap Premium + Kit Atendimento que Rende",
+      "premium_kit_items": [
+        {
+          "name": "Combinados da Encomenda",
+          "description": "Mensagens e checklist para combinar sinal, pagamento restante, alteracoes, cancelamento, retirada e entrega antes de produzir."
+        },
+        {
+          "name": "Cardapio que Rende",
+          "description": "Guia para montar um cardapio claro no celular, com descricao, rendimento, preco, prazo e proximo passo para a cliente pedir."
+        },
+        {
+          "name": "Datas que Rende",
+          "description": "Planejamento para escolher datas que combinam com a producao, definir limite de encomendas, prazos e ideias de divulgacao."
+        }
+      ],
+      "pricing_model": "pagamento unico",
+      "access_duration": "30 dias",
+      "main_cta": "Comprar Premium + Kit"
+    }
+  },
+  "visual_identity": {
+    "brand_feeling": "caloroso, simples, brasileiro, confiavel, feito para rotina real de confeitaria",
+    "primary_color": "#b35b51",
+    "accent_color": "#c89b3c",
+    "background_color": "#FDF8F4",
+    "card_color": "#FFFFFF",
+    "text_color": "#1F1F1F",
+    "ui_style": "mobile web app, cards brancos, cantos arredondados, botoes grandes, visual limpo e pratico",
+    "avoid_style": [
+      "interface futurista generica",
+      "chatbot corporativo azul",
+      "dashboard complexo",
+      "tela cheia de graficos",
+      "logo oficial do WhatsApp",
+      "marcas famosas"
+    ]
+  },
+  "real_product_flow": {
+    "screen_name": "Conversas",
+    "main_concept": "uma aba por cliente; a IA lembra o que ja foi dito na conversa",
+    "important_sections": [
+      {
+        "name": "abas_de_conversa",
+        "visual": "chips arredondados no topo, exemplo: Cliente 1, Nova"
+      },
+      {
+        "name": "detalhes_do_pedido",
+        "visual": "card recolhivel com tipo de pedido, produto, preco enviado, data e disponibilidade",
+        "example_fields": [
+          "Tipo de pedido",
+          "Qual e o produto ou pedido?",
+          "Ja passou o preco?",
+          "Data do pedido",
+          "Voce consegue atender essa data?"
+        ]
+      },
+      {
+        "name": "situacao_da_cliente",
+        "visual": "botoes pequenos em formato chip para escolher o problema da conversa",
+        "examples": [
+          "Cliente sumiu depois do preco",
+          "Cliente pediu desconto",
+          "Cliente disse que esta caro",
+          "Cliente perguntou o preco",
+          "Pedir sinal"
+        ]
+      },
+      {
+        "name": "mensagem_da_cliente",
+        "visual": "campo de texto grande com placeholder para colar a mensagem recebida"
+      },
+      {
+        "name": "geracao",
+        "visual": "botao grande com icone de brilho escrito Gerar resposta; durante o carregamento aparece Gerando ou Lendo a conversa"
+      },
+      {
+        "name": "resultado",
+        "visual": "card destacado com a resposta gerada, botao Copiar resposta, opcao Deixar mais curta e um bloco O que fazer agora"
+      }
+    ]
+  },
+  "phone_screen_for_ad": {
+    "goal": "mostrar rapidamente que o DoceZap transforma uma mensagem dificil em uma resposta melhor para revisar e copiar",
+    "recommended_mockup": {
+      "top_header": "DoceZap",
+      "small_status": "Respostas melhores no WhatsApp",
+      "customer_message_card": {
+        "label": "Mensagem da cliente",
+        "text": "Achei um pouco caro. Tem desconto?"
+      },
+      "situation_chip": "Cliente pediu desconto",
+      "primary_button_loading": "Gerando resposta...",
+      "generated_response_card": {
+        "label": "Resposta sugerida",
+        "text": "Entendo. Esse valor e pelo preparo sob encomenda, ingredientes e cuidado em cada detalhe. Se quiser, posso te mostrar uma opcao menor.",
+        "button": "Copiar resposta"
+      },
+      "next_step_box": "Proximo passo: enviar a resposta e oferecer uma opcao menor se a cliente quiser economizar."
+    },
+    "visual_rules": [
+      "tela clara, simples e legivel",
+      "usar cards grandes em vez de muitos detalhes pequenos",
+      "mostrar no maximo uma mensagem da cliente e uma resposta",
+      "botao Copiar resposta deve ser visivel",
+      "nao criar tela generica de chatbot",
+      "nao inventar dashboard com graficos",
+      "nao usar logo oficial do WhatsApp"
+    ]
+  },
+  "ad_message": {
+    "problem": "clientes pedem desconto, somem depois do preco ou dizem que esta caro",
+    "solution": "DoceZap ajuda a criar respostas melhores e o Premium inclui materiais para organizar o atendimento",
+    "purchase_intent": "compre o DoceZap para responder melhor e deixar cardapio, combinados e datas mais claros",
+    "final_overlay_copy": [
+      "Atenda melhor no WhatsApp.",
+      "Comprar Premium + Kit",
+      "Premium + Kit R$ 49,90"
+    ]
+  },
+  "flow_prompt_instruction": {
+    "important": "Use this JSON as product and UI reference. The phone screen must look like a simple mobile web app named DoceZap, not a generic chatbot.",
+    "do_not_rely_on_video_model_for_text": "If the video model cannot render text perfectly, leave clean empty spaces on the message bubbles and phone screen so the exact Portuguese text can be added later in editing.",
+    "must_communicate": [
+      "this is a product ad",
+      "the product is DoceZap",
+      "the product helps confectioners answer difficult customer messages",
+      "the premium offer includes Combinados da Encomenda, Cardapio que Rende and Datas que Rende",
+      "the viewer should buy it",
+      "the offer starts at R$ 19,90"
+    ]
+  }
+}

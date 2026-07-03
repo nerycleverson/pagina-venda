@@ -178,7 +178,7 @@ export function ResponseStep({ answers, onBack, onNext }: ResponseStepProps) {
         <div className="flex items-center gap-3 bg-[#075E54] px-4 py-3 text-white">
           <span className="grid h-10 w-10 place-items-center rounded-full bg-white/20 text-xs font-bold">DZ</span>
           <div>
-            <p className="text-sm font-bold">DoceZap IA</p>
+            <p className="text-sm font-bold">DoceZap</p>
             <p className="text-[11px] text-white/75">
               {isResponseReady ? "resposta pronta para copiar" : "preparando uma resposta personalizada"}
             </p>
