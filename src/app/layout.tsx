@@ -4,8 +4,26 @@ import './globals.css';
 import { Analytics } from '@/components/Analytics';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://oferta.chocolaterende.com'),
   title: 'Kit WhatsApp da Confeitaria | DoceZap',
   description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Kit WhatsApp da Confeitaria | DoceZap',
+    description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+    url: '/',
+    siteName: 'DoceZap',
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kit WhatsApp da Confeitaria | DoceZap',
+    description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+  },
 };
 
 export default function RootLayout({

@@ -84,7 +84,6 @@ export function trackEvent(name: string, params: AnalyticsParams = {}) {
     if (metaStandardEvent) {
       window.fbq("track", metaStandardEvent, params);
     }
-    window.fbq("trackCustom", name, params);
   }
 
   window.ttq?.track?.(name, params);

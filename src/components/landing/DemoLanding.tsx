@@ -224,7 +224,7 @@ export function DemoLanding() {
 
           <div className="space-y-4">
             <p className="inline-flex rounded-full border border-primary/15 bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-primary shadow-sm">
-              Para confeiteiras que vendem pelo WhatsApp
+              A cliente pediu desconto e você travou?
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
               Organize o WhatsApp da sua confeitaria sem depender do improviso
@@ -250,6 +250,12 @@ export function DemoLanding() {
               <Wand2 className="h-4 w-4" />
               Ver uma resposta agora
             </button>
+            <a
+              href="#planos"
+              className="inline-flex h-10 items-center justify-center text-sm font-bold text-primary underline-offset-4 hover:underline"
+            >
+              Comparar pacotes e preços
+            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
@@ -275,9 +281,9 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/65">
         <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Kit feito para confeitaria",
-            "Cardápio, combinados e datas mais claros",
-            "Você revisa tudo antes de enviar",
+            "Sem improviso na hora de responder",
+            "Combinados claros antes de produzir",
+            "Você revisa e decide o que enviar",
           ].map((text) => (
             <div key={text} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-green-700" />
@@ -324,9 +330,9 @@ export function DemoLanding() {
           ) : (
             <div className="grid gap-3 sm:grid-cols-3">
               {[
-                { icon: MessageCircle, title: "Cole", text: "a mensagem da cliente" },
-                { icon: Wand2, title: "Escolha", text: "a situação" },
-                { icon: Copy, title: "Revise", text: "e copie a resposta" },
+                { icon: MessageCircle, title: "Mensagem difícil", text: "desconto, caro ou sumiço" },
+                { icon: Wand2, title: "Situação certa", text: "o tom muda para cada caso" },
+                { icon: Copy, title: "Resposta melhor", text: "revise, copie e mande" },
               ].map(({ icon: Icon, title, text }) => (
                 <div key={title} className="rounded-2xl bg-muted/55 p-4 text-center">
                   <Icon className="mx-auto mb-3 h-6 w-6 text-primary" />
