@@ -113,7 +113,7 @@ const SITUATIONS: Situation[] = [
     label: "Cliente pediu desconto",
     customer: "Adorei seu trabalho! Tem como fazer um descontinho?",
     response:
-      "Fico feliz que você amou! 😊 Esse já é meu valor final e justo pra esse bolo de ninho do jeito que ele é. Se o orçamento apertar, a gente pode ajustar o tamanho ou o recheio pra chegar num valor diferente. Quer que eu te mostre uma opção assim, ou prefere garantir o sábado com ele desse jeito mesmo?",
+      "Fico feliz que você amou! 😊 Oi linda, esse já é meu valor pra esse bolo com essas opções de recheio. Se o orçamento apertar, a gente pode fazer numa forma menor, ou trocar o recheio pra chegar num valor que fique bom pra você. O que acha?",
     note: "Você revisa, ajusta e copia antes de mandar.",
   },
   {
@@ -121,7 +121,7 @@ const SITUATIONS: Situation[] = [
     label: "Cliente achou caro",
     customer: "Amei o bolo, mas achei um pouco caro.",
     response:
-      "Entendi! Esse bolo de chocolate é feito à mão, exclusivo pra você, bem diferente de qualquer coisa pronta por aí. O valor de R$180 se mantém, sim. Quer que eu te mande uma foto de um que já fiz parecido?",
+      "Entendi, linda! Esse bolo é feito todo à mão, com recheio de verdade, bem diferente dos de mercado que derretem na mesa. O valor de R$180 se mantém, sim. Quer que eu te mande uma foto de um que já fiz parecido pra você ver a estrutura?",
     note: "Explica valor e conduz o próximo passo.",
   },
   {
@@ -129,7 +129,7 @@ const SITUATIONS: Situation[] = [
     label: "Cliente sumiu",
     customer: "Vou ver aqui e qualquer coisa te aviso.",
     response:
-      "Combinado 😊 Só lembrando que minha agenda fecha rápido. Se quiser garantir a data, me chama que eu vejo a melhor forma para você.",
+      "Combinado 😊 Só lembrando que minha agenda fecha rápido e eu não consigo segurar a data sem o sinal, tá bem? Se quiser garantir, me chama que eu vejo a melhor forma para você.",
     note: "Retoma a conversa sem pressionar.",
   },
 ];
@@ -224,45 +224,43 @@ export function DemoLanding() {
 
           <div className="space-y-4">
             <p className="inline-flex rounded-full border border-primary/15 bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-primary shadow-sm">
-              A cliente pediu desconto e você travou?
+              Chega de dar desconto no susto
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
-              Organize o WhatsApp da sua confeitaria sem depender do improviso
+              A cliente pediu desconto e você travou? Aqui você acha a resposta na hora.
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              O Kit WhatsApp da Confeitaria reúne respostas melhores, combinados de encomenda, cardápio e datas para atender com mais segurança. Inclui DoceZap Premium por 30 dias para adaptar as mensagens ao seu jeito.
+              Kit com 70 respostas para WhatsApp + combinados, cardápio e datas para não perder mais vendas. Teste uma resposta agora.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:max-w-md">
             <Button
-              onClick={() => goToCheckout("premium", "hero")}
+              onClick={generateAgain}
               className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
             >
-              Comprar Kit Completo
-              <ArrowRight className="h-5 w-5" />
+              Ver resposta para desconto
+              <Wand2 className="h-5 w-5" />
             </Button>
-            <button
+            <Button
+              variant="outline"
               type="button"
-              onClick={generateAgain}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl border-2 border-primary/25 bg-white/80 px-5 text-sm font-bold text-primary transition-colors hover:bg-primary/5"
+              onClick={() => goToCheckout("premium", "hero")}
+              className="h-12 rounded-2xl border-2 border-primary/25 bg-white/80 text-sm font-bold text-primary hover:bg-primary/5 hover:text-primary"
             >
-              <Wand2 className="h-4 w-4" />
-              Ver uma resposta agora
-            </button>
-            <a
-              href="#planos"
-              className="inline-flex h-10 items-center justify-center text-sm font-bold text-primary underline-offset-4 hover:underline"
-            >
-              Comparar pacotes e preços
-            </a>
+              Comprar Kit - R$49,90
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            <p className="mt-1 text-center text-[13px] font-medium italic text-muted-foreground">
+              "Usei quando a cliente chorou o preço e fechei o bolo sem dar desconto."
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-md">
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Você revisa antes de enviar</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Não responde sozinho</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Inclui DoceZap Premium</span>
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Pagamento único</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Kit completo R$49,90</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Básico R$19,90</span>
           </div>
         </div>
 
@@ -281,9 +279,9 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/65">
         <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Sem improviso na hora de responder",
-            "Combinados claros antes de produzir",
-            "Você revisa e decide o que enviar",
+            "Responda sem gaguejar mesmo com a mão suja de farinha",
+            "Nunca mais leve calote de bolo pronto (cobre o sinal)",
+            "Adapte as respostas pro seu jeito de falar (não soe como robô)",
           ].map((text) => (
             <div key={text} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-green-700" />
@@ -296,9 +294,9 @@ export function DemoLanding() {
       <section className="mx-auto grid max-w-6xl gap-6 px-4 py-9 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="space-y-4">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Como funciona</p>
-          <h2 className="text-3xl font-bold leading-tight">Veja como funciona antes de comprar.</h2>
+          <h2 className="text-3xl font-bold leading-tight">Veja como salvar uma venda em 3 cliques.</h2>
           <p className="max-w-md text-base leading-relaxed text-muted-foreground">
-            Cole a mensagem difícil da cliente, escolha a situação e receba uma sugestão de resposta para revisar, copiar e mandar pelo WhatsApp.
+            Veja o que a cliente mandou, escolha a situação e copie a resposta pronta para adaptar ao seu jeito e mandar no WhatsApp.
           </p>
           <Button
             variant="outline"
@@ -348,9 +346,9 @@ export function DemoLanding() {
       <section id="planos" className="mx-auto max-w-5xl px-4 pb-10 sm:px-6">
         <div className="mx-auto mb-5 max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Escolha seu pacote</p>
-          <h2 className="mt-2 text-3xl font-bold leading-tight">Escolha entre testar o DoceZap ou pegar o kit completo</h2>
+          <h2 className="mt-2 text-3xl font-bold leading-tight">Escolha entre testar as respostas ou blindar sua confeitaria contra prejuízos</h2>
           <p className="mt-3 text-sm font-medium leading-relaxed text-muted-foreground sm:text-base">
-            O DoceZap Básico serve para testar respostas melhores. O Kit WhatsApp da Confeitaria é para organizar o atendimento completo: respostas, combinados, cardápio e datas.
+            O DoceZap Básico serve para testar as mensagens. O Kit Completo é o escudo definitivo: inclui as mensagens, regras de sinal (para não levar calote) e cardápio organizado.
           </p>
         </div>
 
@@ -358,20 +356,20 @@ export function DemoLanding() {
           <PlanCard
             plan="premium"
             title="Kit WhatsApp da Confeitaria"
-            eyebrow="Mais indicado"
+            eyebrow="O Escudo Completo contra prejuízos"
             price="R$49,90"
-            description="Para confeiteiras que querem tirar o atendimento do improviso: responder melhor, combinar encomendas com clareza e deixar cardápio e datas mais organizados."
-            ctaLabel="Comprar Kit Completo"
+            description="A resposta certa + as regras na mão. Para quem quer parar de perder dinheiro: inclui respostas, regras de sinal (para não levar calote) e cardápio claro. Comprando separado sairia R$147."
+            ctaLabel="Levar Kit Completo"
             recommended
             onCheckout={goToCheckout}
           />
           <PlanCard
             plan="basic"
             title="DoceZap Básico"
-            eyebrow="Entrada barata para testar"
+            eyebrow="Test-drive"
             price="R$19,90"
-            description="Entrada simples para testar respostas melhores no WhatsApp sem pegar o kit completo."
-            ctaLabel="Comprar Básico"
+            description="Apenas as respostas. Para quem quer testar o DoceZap, mas vai continuar correndo risco de levar calote por não ter regras claras de sinal e retirada."
+            ctaLabel="Comprar só o Básico"
             onCheckout={goToCheckout}
           />
         </div>
@@ -386,31 +384,31 @@ export function DemoLanding() {
             <AccordionItem value="automatic">
               <AccordionTrigger className="text-left">O DoceZap responde sozinho?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. Ele cria uma sugestão de resposta para você revisar, ajustar, copiar e mandar manualmente pelo WhatsApp.
+                Não. Ele cria uma sugestão de resposta para você revisar, ajustar, copiar e mandar manualmente pelo WhatsApp. Nenhuma mensagem vai pro seu cliente sem você apertar "enviar".
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="kit">
-              <AccordionTrigger className="text-left">O que vem no Kit WhatsApp da Confeitaria?</AccordionTrigger>
+            <AccordionItem value="robotic">
+              <AccordionTrigger className="text-left">A cliente vai perceber que é resposta pronta?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Ele inclui DoceZap Premium por 30 dias, 70 respostas melhores, voz mais personalizada e materiais para combinados de encomenda, cardápio e datas.
+                Não. Você usa o DoceZap para gerar a sugestão e adapta com o seu "Oi linda", do seu jeito, antes de mandar. O texto base é profissional, o toque final é seu.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="install">
-              <AccordionTrigger className="text-left">Preciso instalar aplicativo?</AccordionTrigger>
+            <AccordionItem value="different">
+              <AccordionTrigger className="text-left">E se meu bolo ou estilo for muito diferente?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. O acesso é pelo navegador.
+                O kit não te dá regras rígidas, ele te dá o norte. Você ajusta o tamanho, peso e sabor direto no WhatsApp. A estrutura de persuasão (pra não levar calote ou pra justificar o preço) é o que salva a venda.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="renewal">
               <AccordionTrigger className="text-left">É assinatura?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. É pagamento único. O acesso ao DoceZap é por 30 dias conforme o plano escolhido.
+                Não. É pagamento único. O acesso ao DoceZap é por 30 dias conforme o plano escolhido, mas você paga uma vez só.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="premium">
               <AccordionTrigger className="text-left">Qual a diferença entre o Básico e o Kit?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                O Básico serve para testar respostas melhores no WhatsApp. O Kit é mais completo: inclui DoceZap Premium, mais respostas, voz personalizada e materiais para organizar atendimento, cardápio, datas e combinados.
+                O Básico serve apenas para testar as respostas. O Kit é o escudo completo contra prejuízo: inclui as respostas mais avançadas, regras de sinal (para não levar calote), e estrutura de cardápio organizado.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="guarantee" className="border-b-0">
@@ -676,6 +674,17 @@ function DemoPanel({
                     >
                       <Wand2 className="h-3.5 w-3.5" />
                     </button>
+                  </div>
+                  <div className="mt-4 border-t border-green-900/10 pt-3">
+                    <p className="mb-2 text-center text-[11px] font-bold text-green-900/80">
+                      Gostou? Quer ter respostas assim para cobrar sinal e não levar calote?
+                    </p>
+                    <a
+                      href="#planos"
+                      className="block w-full rounded-xl bg-green-700 py-2 text-center text-xs font-bold text-white shadow-sm"
+                    >
+                      Levar o Kit Completo
+                    </a>
                   </div>
                 </>
               )}
