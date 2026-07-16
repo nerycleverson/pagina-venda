@@ -20,7 +20,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import {
   buildCheckoutUrlWithCurrentParams,
   trackEvent,
-  trackMetaInitiateCheckout,
+  trackInitiateCheckout,
   trackTikTokEvent,
 } from "@/lib/analytics";
 
@@ -190,7 +190,7 @@ export function DemoLanding() {
   };
 
   const goToCheckout = (plan: PlanId, source: string) => {
-    trackMetaInitiateCheckout(plan);
+    trackInitiateCheckout(plan);
     trackEvent("checkout_clicked", { plan, source });
     trackTikTokEvent("InitiateCheckout", PRODUCTS[plan]);
     const checkoutUrl = buildCheckoutUrlWithCurrentParams(CHECKOUT_LINKS[plan]);

@@ -4,11 +4,13 @@ O site funciona normalmente sem essas variáveis. Para ativar as métricas, cada
 
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
-NEXT_PUBLIC_META_PIXEL_ID=000000000000000
+NEXT_PUBLIC_UTMIFY_PIXEL_ID=000000000000000000000000
 
 NEXT_PUBLIC_TIKTOK_PIXEL_ID=D8GRM6BC77U5P5NBPEG0
 
-Substitua os valores pelos identificadores reais do Google Analytics 4 e do Meta Pixel.
+Substitua os valores pelos identificadores reais do Google Analytics 4, da UTMify e do TikTok.
+
+Os eventos padrão do Meta Pixel (`PageView`, `ViewContent` e `InitiateCheckout`) são enviados somente pelo pixel de otimização da UTMify. Não instale o Meta Pixel manualmente nesta página, pois os dois caminhos registrariam o mesmo evento duas vezes.
 
 No TikTok, a página envia PageView, ViewContent e InitiateCheckout. O evento CompletePayment deve ser enviado apenas pelo checkout ou pela página de compra aprovada.
 

@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import {
   buildCheckoutUrlWithCurrentParams,
   trackEvent,
-  trackMetaInitiateCheckout,
+  trackInitiateCheckout,
   trackTikTokEvent,
 } from '@/lib/analytics';
 
@@ -97,7 +97,7 @@ export function OfferStep({ answers }: OfferStepProps) {
   }, [isPremiumRecommended, volume]);
 
   const goToCheckout = (planId: "basic" | "premium", url: string, source: string) => {
-    trackMetaInitiateCheckout(planId);
+    trackInitiateCheckout(planId);
     trackEvent("checkout_clicked", { plan: planId, source });
     trackTikTokEvent("InitiateCheckout", TIKTOK_PRODUCTS[planId]);
     const checkoutUrl = buildCheckoutUrlWithCurrentParams(url);

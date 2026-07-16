@@ -2,11 +2,7 @@ type AnalyticsValue = string | number | boolean | undefined | null | readonly st
 type AnalyticsParams = Record<string, AnalyticsValue>;
 type CheckoutPlanId = "basic" | "premium";
 
-const META_STANDARD_EVENTS: Record<string, string> = {
-  offer_viewed: "ViewContent",
-};
-
-const META_INITIATE_CHECKOUT_PARAMS: Record<CheckoutPlanId, AnalyticsParams> = {
+const INITIATE_CHECKOUT_PARAMS: Record<CheckoutPlanId, AnalyticsParams> = {
   basic: {
     content_name: "DoceZap Básico",
     content_ids: ["docezap_basico"],
@@ -27,7 +23,6 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
-    fbq?: (...args: unknown[]) => void;
     ttq?: {
       track?: (name: string, params?: AnalyticsParams) => void;
     };
@@ -39,14 +34,11 @@ export function trackTikTokEvent(name: string, params: AnalyticsParams = {}) {
   window.ttq?.track?.(name, params);
 }
 
-export function trackMetaInitiateCheckout(plan: CheckoutPlanId) {
+export function trackInitiateCheckout(plan: CheckoutPlanId) {
   if (typeof window === "undefined") return;
 
-  const params = META_INITIATE_CHECKOUT_PARAMS[plan];
-
-  if (typeof window.fbq === "function") {
-    window.fbq("track", "InitiateCheckout", params);
-  }
+  // O Meta é rastreado pela UTMify; aqui preservamos apenas GA/dataLayer.
+  const params = INITIATE_CHECKOUT_PARAMS[plan];
 
   if (typeof window.gtag === "function") {
     window.gtag("event", "InitiateCheckout", params);
@@ -77,13 +69,6 @@ export function trackEvent(name: string, params: AnalyticsParams = {}) {
     window.gtag("event", name, params);
   } else {
     window.dataLayer?.push({ event: name, ...params });
-  }
-
-  if (typeof window.fbq === "function") {
-    const metaStandardEvent = META_STANDARD_EVENTS[name];
-    if (metaStandardEvent) {
-      window.fbq("track", metaStandardEvent, params);
-    }
   }
 
   window.ttq?.track?.(name, params);

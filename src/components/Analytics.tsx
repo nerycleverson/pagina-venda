@@ -1,11 +1,9 @@
 import Script from "next/script";
 
-const DEFAULT_META_PIXEL_ID = "836514669072252";
 const DEFAULT_UTMIFY_PIXEL_ID = "6a3d9a9eb47bc5517b0135dd";
 
 export function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || DEFAULT_META_PIXEL_ID;
   const tiktokPixelId = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID;
   const utmifyPixelId = process.env.NEXT_PUBLIC_UTMIFY_PIXEL_ID || DEFAULT_UTMIFY_PIXEL_ID;
 
@@ -15,14 +13,6 @@ export function Analytics() {
     "window.gtag = gtag;" +
     "gtag('js', new Date());" +
     "gtag('config', " + JSON.stringify(gaId) + ");";
-
-  const metaScript =
-    "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?" +
-    "n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;" +
-    "n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;" +
-    "t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}" +
-    "(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');" +
-    "fbq('init'," + JSON.stringify(metaPixelId) + ");fbq('track','PageView');";
 
   const tiktokScript =
     "!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];" +
@@ -36,6 +26,7 @@ export function Analytics() {
     "a.src=r+'?sdkid='+e+'&lib='+t;var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(a,s)};" +
     "ttq.load(" + JSON.stringify(tiktokPixelId) + ");ttq.page();}(window,document,'ttq');";
 
+  // A UTMify é a única responsável pelos eventos padrão do Meta nesta página.
   const utmifyScript =
     "window.pixelId = " + JSON.stringify(utmifyPixelId) + ";" +
     "var a = document.createElement('script');" +
@@ -53,21 +44,6 @@ export function Analytics() {
             strategy="afterInteractive"
           />
           <Script id="ga4-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: gaScript }} />
-        </>
-      )}
-      {metaPixelId && (
-        <>
-          <Script id="meta-pixel-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: metaScript }} />
-          <noscript>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              height="1"
-              width="1"
-              style={{ display: "none" }}
-              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
-              alt=""
-            />
-          </noscript>
         </>
       )}
       {tiktokPixelId && (
