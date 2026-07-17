@@ -127,15 +127,15 @@ const SITUATIONS: Situation[] = [
   {
     id: "ghosted",
     label: "Cliente sumiu",
-    customer: "Vou ver aqui e qualquer coisa te aviso.",
+    customer: "Vou olhar o cardápio e qualquer coisa te aviso.",
     response:
-      "Combinado 😊 Só lembrando que minha agenda fecha rápido e eu não consigo segurar a data sem o sinal, tá bem? Se quiser garantir, me chama que eu vejo a melhor forma para você.",
-    note: "Retoma a conversa sem pressionar.",
+      "Claro 😊 Pra eu te ajudar a escolher, me diz pra quantas pessoas e qual é a data? Aí eu te mostro as opções que fazem mais sentido e fica bem mais fácil decidir.",
+    note: "Ajuda a cliente a escolher sem pressionar.",
   },
 ];
 
 export function DemoLanding() {
-  const [selectedId, setSelectedId] = useState<SituationId>("discount");
+  const [selectedId, setSelectedId] = useState<SituationId>("ghosted");
   const [isGenerating, setIsGenerating] = useState(true);
   const [copied, setCopied] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
@@ -209,50 +209,50 @@ export function DemoLanding() {
   };
 
   return (
-    <main className="min-h-screen pb-24 text-foreground">
-      <section className="mx-auto grid w-full max-w-6xl gap-8 px-4 pb-10 pt-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:pb-14 lg:pt-10">
-        <div className="space-y-5">
+    <main className="min-h-screen overflow-x-hidden pb-24 text-foreground">
+      <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-8 px-4 pb-10 pt-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:pb-14 lg:pt-10">
+        <div className="min-w-0 space-y-5">
           <div className="flex items-center gap-2 text-primary">
             <span className="grid h-10 w-10 place-items-center rounded-2xl bg-primary text-white shadow-md shadow-primary/20">
               <Sparkles className="h-5 w-5" />
             </span>
             <div>
-              <span className="block text-lg font-bold leading-none">DoceZap</span>
-              <span className="text-xs font-bold text-primary/70">respostas melhores no WhatsApp</span>
+              <span className="block text-lg font-bold leading-none">Kit WhatsApp da Confeitaria</span>
+              <span className="text-xs font-bold text-primary/70">cardápio, respostas e combinados</span>
             </div>
           </div>
 
           <div className="space-y-4">
             <p className="inline-flex rounded-full border border-primary/15 bg-white/70 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-primary shadow-sm">
-              Chega de dar desconto no susto
+              O problema pode começar no cardápio
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
-              A cliente pediu desconto e você travou? Aqui você acha a resposta na hora.
+              Seu cardápio pode estar fazendo a cliente desistir antes de pedir.
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              Kit com 70 respostas para WhatsApp + combinados, cardápio e datas para não perder mais vendas. Teste uma resposta agora.
+              Quando ela não entende o que escolher, quanto custa ou como fazer o pedido, ela visualiza e some. O Kit deixa cardápio, respostas e combinados mais claros.
             </p>
           </div>
 
           <div className="flex flex-col gap-3 sm:max-w-md">
             <Button
               onClick={generateAgain}
-              className="h-16 rounded-2xl text-lg font-bold shadow-xl shadow-primary/20"
+              className="h-16 whitespace-normal rounded-2xl px-4 text-base font-bold leading-tight shadow-xl shadow-primary/20 sm:text-lg"
             >
-              Ver resposta para desconto
+              Ver resposta pra quem sumiu
               <Wand2 className="h-5 w-5" />
             </Button>
             <Button
               variant="outline"
               type="button"
               onClick={() => goToCheckout("premium", "hero")}
-              className="h-12 rounded-2xl border-2 border-primary/25 bg-white/80 text-sm font-bold text-primary hover:bg-primary/5 hover:text-primary"
+              className="h-12 whitespace-normal rounded-2xl border-2 border-primary/25 bg-white/80 px-3 text-sm font-bold text-primary hover:bg-primary/5 hover:text-primary"
             >
-              Comprar Kit - R$49,90
+              Quero o Kit Completo - R$49,90
               <ArrowRight className="h-4 w-4" />
             </Button>
-            <p className="mt-1 text-center text-[13px] font-medium italic text-muted-foreground">
-              "Usei quando a cliente chorou o preço e fechei o bolo sem dar desconto."
+            <p className="mt-1 text-center text-[13px] font-medium text-muted-foreground">
+              Veja como responder sem mandar só o link e esperar.
             </p>
           </div>
 
@@ -277,11 +277,20 @@ export function DemoLanding() {
       </section>
 
       <section className="border-y border-primary/10 bg-white/65">
-        <div className="mx-auto grid max-w-6xl gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 pb-2 pt-8 text-center sm:px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">O cardápio é só o começo</p>
+          <h2 className="mt-2 text-2xl font-bold leading-tight sm:text-3xl">
+            Depois que ela escolhe, ainda tem preço, prazo, sinal e retirada.
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Por isso o Kit reúne o Cardápio que Rende, respostas do DoceZap e materiais para deixar os combinados e as datas mais claros.
+          </p>
+        </div>
+        <div className="mx-auto grid max-w-6xl gap-3 px-4 pb-8 pt-5 sm:grid-cols-3 sm:px-6">
           {[
-            "Responda sem gaguejar mesmo com a mão suja de farinha",
-            "Nunca mais leve calote de bolo pronto (cobre o sinal)",
-            "Adapte as respostas pro seu jeito de falar (não soe como robô)",
+            "Ajude a cliente a escolher sem mandar só uma lista de sabores",
+            "Explique preço, prazo e sinal sem improvisar",
+            "Adapte as respostas pro seu jeito antes de enviar",
           ].map((text) => (
             <div key={text} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-green-700" />
@@ -593,7 +602,7 @@ function DemoPanel({
   resultRef: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
-    <div className="rounded-[28px] border border-primary/10 bg-white p-3 shadow-2xl shadow-primary/15 sm:p-4">
+    <div className="min-w-0 rounded-[28px] border border-primary/10 bg-white p-3 shadow-2xl shadow-primary/15 sm:p-4">
       <div className="overflow-hidden rounded-[24px] border border-[#d7e9d7] bg-[#f3f8f0]">
         <div className="flex items-center justify-between bg-[#075E54] px-4 py-3 text-white">
           <div className="flex items-center gap-3">
@@ -677,7 +686,7 @@ function DemoPanel({
                   </div>
                   <div className="mt-4 border-t border-green-900/10 pt-3">
                     <p className="mb-2 text-center text-[11px] font-bold text-green-900/80">
-                      Gostou? Quer ter respostas assim para cobrar sinal e não levar calote?
+                      Gostou? Use respostas assim para ajudar a cliente a escolher e continuar a conversa.
                     </p>
                     <a
                       href="#planos"
