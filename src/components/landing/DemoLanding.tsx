@@ -394,6 +394,24 @@ export function DemoLanding() {
               </div>
             </div>
           </div>
+
+          <div className="mx-auto mt-4 max-w-2xl rounded-3xl border border-primary/15 bg-white/90 p-5 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6 sm:text-left">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">Quer começar só pelas respostas?</p>
+              <h3 className="mt-1 text-xl font-bold">DoceZap Básico por R$19,90</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                São 30 respostas por 30 dias, sem os materiais do Kit e sem assinatura automática.
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => goToCheckout("basic", "basic_after_kit")}
+              className="mt-4 h-12 w-full shrink-0 rounded-2xl border-2 border-primary/30 bg-white px-5 font-bold text-primary hover:bg-primary/5 hover:text-primary sm:mt-0 sm:w-auto"
+            >
+              Quero só o Básico
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -434,21 +452,6 @@ export function DemoLanding() {
           </Accordion>
         </div>
 
-        <div className="mt-6 rounded-3xl border border-primary/10 bg-white p-5 text-center shadow-sm">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">Quer começar apenas pelas respostas?</p>
-          <h3 className="mt-2 text-xl font-bold">DoceZap Básico por R$19,90</h3>
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            São 30 respostas por 30 dias, sem os materiais do Kit e sem assinatura automática.
-          </p>
-          <Button
-            variant="outline"
-            type="button"
-            onClick={() => goToCheckout("basic", "basic_fallback")}
-            className="mt-4 h-12 rounded-2xl border-2 border-primary/25 bg-white px-5 font-bold text-primary hover:bg-primary/5 hover:text-primary"
-          >
-            Quero só o Básico por R$19,90
-          </Button>
-        </div>
       </section>
 
       <footer className="mx-auto max-w-lg px-6 pb-8 text-center text-xs leading-relaxed text-muted-foreground">
