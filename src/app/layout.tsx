@@ -15,14 +15,23 @@ export const metadata: Metadata = {
     title: 'Cardápio Pronto para Pedido | Chocolate Rende',
     description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
     url: '/',
-    siteName: 'DoceZap',
+    siteName: 'Chocolate Rende',
     locale: 'pt_BR',
     type: 'website',
+    images: [
+      {
+        url: '/produtos/banner-cardapio-pronto-checkout.png',
+        width: 2172,
+        height: 724,
+        alt: 'Cardápio Pronto para Pedido',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cardápio Pronto para Pedido | Chocolate Rende',
     description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
+    images: ['/produtos/banner-cardapio-pronto-checkout.png'],
   },
 };
 
