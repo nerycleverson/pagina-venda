@@ -5,15 +5,15 @@ import { Analytics } from '@/components/Analytics';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://oferta.chocolaterende.com'),
-  title: 'Kit WhatsApp da Confeitaria | DoceZap',
-  description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+  title: 'Cardápio Pronto para Pedido | Chocolate Rende',
+  description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: 'Kit WhatsApp da Confeitaria | DoceZap',
-    description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+    title: 'Cardápio Pronto para Pedido | Chocolate Rende',
+    description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
     url: '/',
     siteName: 'DoceZap',
     locale: 'pt_BR',
@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kit WhatsApp da Confeitaria | DoceZap',
-    description: 'Respostas melhores, combinados, cardápio e datas para organizar o atendimento da confeitaria no WhatsApp.',
+    title: 'Cardápio Pronto para Pedido | Chocolate Rende',
+    description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
   },
 };
 

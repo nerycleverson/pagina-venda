@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   ArrowRight,
   BadgeCheck,
-  CalendarDays,
   Check,
   CheckCircle2,
   ClipboardCheck,
@@ -28,7 +27,6 @@ import {
 
 const CHECKOUT_LINKS = {
   premium: "https://checkout.chocolaterende.com/VCCL1O8SD38E",
-  basic: "https://checkout.chocolaterende.com/VCCL1O8SD38D",
 } as const;
 
 const CHECKOUT_REDIRECT_DELAY_MS = 400;
@@ -37,17 +35,9 @@ const VIDEO_SRC = "/videos/demonstracao-docezap.mp4";
 const PRODUCTS = {
   premium: {
     content_id: "VCCL1O8SD38E",
-    content_name: "Kit WhatsApp da Confeitaria",
+    content_name: "Cardápio Pronto para Pedido",
     content_type: "product",
     value: 49.9,
-    currency: "BRL",
-    quantity: 1,
-  },
-  basic: {
-    content_id: "VCCL1O8SD38D",
-    content_name: "DoceZap Básico - 30 respostas",
-    content_type: "product",
-    value: 19.9,
     currency: "BRL",
     quantity: 1,
   },
@@ -55,40 +45,33 @@ const PRODUCTS = {
 
 type PlanId = keyof typeof CHECKOUT_LINKS;
 
-const KIT_FEATURES = [
-  "DoceZap Premium por 30 dias",
-  "70 respostas melhores para WhatsApp",
-  "Voz mais personalizada para sua confeitaria",
-  "Combinados da Encomenda",
-  "Cardápio que Rende",
-  "Datas que Rende como material complementar",
+const OFFER_FEATURES = [
+  "Cardápio que Rende com estrutura passo a passo",
+  "Modelo de descrição para adaptar aos seus produtos",
+  "Orientação para rendimento, preço, prazo e como pedir",
+  "DoceZap Premium por 30 dias, com 70 respostas",
+  "Combinados da Encomenda com mensagens e checklist",
   "Pagamento único, sem assinatura automática",
 ];
 
 const PRODUCT_PROOFS = [
   {
     src: "/provas/docezap-cardapio.png",
-    label: "Cardápio que Rende",
-    title: "Um modelo para apresentar produto, rendimento, preço e prazo.",
+    label: "Produto principal",
+    title: "Cardápio que Rende: estrutura e modelo para adaptar.",
     alt: "Tela real do Cardápio que Rende com modelo de descrição de bolo",
   },
   {
     src: "/provas/docezap-responder.png",
-    label: "DoceZap Premium",
-    title: "Situações de atendimento para você escolher antes de gerar.",
+    label: "Bônus 1",
+    title: "DoceZap Premium para ajudar quando a conversa trava.",
     alt: "Tela real do Respondedor DoceZap com situações comuns de atendimento",
   },
   {
     src: "/provas/docezap-combinados.png",
-    label: "Combinados da Encomenda",
-    title: "Checklist para conferir os detalhes antes de produzir.",
+    label: "Bônus 2",
+    title: "Combinados da Encomenda para confirmar o pedido.",
     alt: "Tela real dos Combinados da Encomenda com checklist do pedido",
-  },
-  {
-    src: "/provas/docezap-datas.png",
-    label: "Datas que Rende",
-    title: "Planejamento de produção para campanhas como a Páscoa.",
-    alt: "Tela real do Datas que Rende com planejamento para a Páscoa",
   },
 ] as const;
 
@@ -130,20 +113,20 @@ export function DemoLanding() {
               <Sparkles className="h-5 w-5" />
             </span>
             <div>
-              <span className="block text-lg font-bold leading-none">Kit WhatsApp da Confeitaria</span>
-              <span className="text-xs font-bold text-primary/70">do cardápio aos combinados da encomenda</span>
+              <span className="block text-lg font-bold leading-none">Cardápio Pronto para Pedido</span>
+              <span className="text-xs font-bold text-primary/70">para confeiteiras que vendem pelo WhatsApp</span>
             </div>
           </div>
 
           <div className="space-y-4">
             <p className="inline-flex max-w-full rounded-full border border-primary/15 bg-white/75 px-3 py-1.5 text-xs font-bold text-primary shadow-sm">
-              Ela abriu seu cardápio e disse: “vou olhar e te aviso”?
+              A cliente abriu o cardápio e ainda perguntou tudo no WhatsApp?
             </p>
             <h1 className="max-w-xl text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
-              Seu cardápio não precisa terminar com a cliente sumindo.
+              Mostre o produto, o preço e como pedir sem deixar a cliente perdida.
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-              O Kit ajuda você a mostrar as opções com mais clareza, responder quando a conversa trava e deixar os combinados da encomenda organizados.
+              Um passo a passo para organizar descrição, rendimento, preço, prazo e próximo passo. Você adapta tudo à realidade da sua confeitaria.
             </p>
           </div>
 
@@ -153,39 +136,39 @@ export function DemoLanding() {
               onClick={() => goToCheckout("premium", "hero")}
               className="h-16 whitespace-normal rounded-2xl px-4 text-lg font-bold leading-tight shadow-xl shadow-primary/20"
             >
-              Quero o Kit por R$49,90
+              Quero organizar por R$49,90
               <ArrowRight className="h-5 w-5" />
             </Button>
             <a
               href="#o-que-vem"
               className="flex h-12 items-center justify-center rounded-2xl border-2 border-primary/20 bg-white/80 px-4 text-sm font-bold text-primary transition-colors hover:bg-primary/5"
             >
-              Ver o que vem no Kit
+              Ver a oferta por dentro
             </a>
           </div>
 
           <div className="grid grid-cols-3 gap-2 text-center text-[11px] font-bold leading-tight text-muted-foreground sm:max-w-lg">
-            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Pagamento único</span>
+            <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">R$49,90 uma vez</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">DoceZap por 30 dias</span>
             <span className="rounded-2xl bg-white/80 px-2 py-3 shadow-sm">Garantia de 7 dias</span>
           </div>
         </div>
 
-        <KitJourneyPreview />
+        <OfferPreview />
       </section>
 
       <section className="border-y border-primary/10 bg-white/70">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Telas reais do Kit</p>
-            <h2 className="mt-2 text-3xl font-bold leading-tight">Veja o que você encontra depois que entra.</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Telas reais da área de membros</p>
+            <h2 className="mt-2 text-3xl font-bold leading-tight">Primeiro você organiza o cardápio. Depois cuida da conversa e dos combinados.</h2>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              Estas imagens foram tiradas da área de membros. Você acessa pelo navegador e avança pelos conteúdos parte por parte.
+              Estas imagens foram tiradas do produto. Você acessa pelo navegador e adapta as orientações ao que realmente vende.
             </p>
-            <p className="mt-3 text-xs font-bold text-primary md:hidden">Deslize para ver as quatro telas</p>
+            <p className="mt-3 text-xs font-bold text-primary md:hidden">Deslize para ver as três telas</p>
           </div>
 
-          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 md:grid md:grid-cols-2 md:overflow-visible md:pb-0">
+          <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
             {PRODUCT_PROOFS.map((proof) => (
               <article key={proof.src} className="min-w-[88%] snap-center overflow-hidden rounded-3xl border border-primary/10 bg-white shadow-lg shadow-primary/5 md:min-w-0">
                 <div className="relative aspect-[71/60] overflow-hidden border-b border-primary/10 bg-[#f7f0eb]">
@@ -210,31 +193,31 @@ export function DemoLanding() {
       <section className="border-y border-primary/10 bg-white/70">
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Um pedido pode travar em três momentos</p>
-            <h2 className="mt-2 text-3xl font-bold leading-tight">O Kit acompanha a conversa do começo ao combinado.</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Antes de mandar o cardápio</p>
+            <h2 className="mt-2 text-3xl font-bold leading-tight">A cliente precisa encontrar três respostas sem arrancar informação de você.</h2>
           </div>
 
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             <JourneyCard
               number="1"
-              title="Antes do orçamento"
-              text="A cliente precisa entender as opções, o rendimento, o prazo e como pedir."
-              product="Cardápio que Rende"
+              title="O que é o produto"
+              text="Nome e foto sozinhos não explicam recheio, tamanho e o que está incluído."
+              product="Descrição clara"
               icon={LayoutTemplate}
             />
             <JourneyCard
               number="2"
-              title="Quando a conversa trava"
-              text="Desconto, preço, pedido incompleto ou aquele ‘vou olhar e te aviso’."
-              product="DoceZap"
-              icon={MessageCircle}
+              title="Quanto serve e quanto custa"
+              text="Rendimento e preço precisam aparecer de um jeito que a cliente entenda."
+              product="Rendimento e preço"
+              icon={BadgeCheck}
             />
             <JourneyCard
               number="3"
-              title="Depois que ela decide"
-              text="Sinal, alterações, prazo, retirada e entrega precisam ficar claros."
-              product="Combinados da Encomenda"
-              icon={ClipboardCheck}
+              title="Como fazer o pedido"
+              text="Antecedência, retirada ou entrega e o próximo passo precisam estar visíveis."
+              product="Prazo e próximo passo"
+              icon={ArrowRight}
             />
           </div>
         </div>
@@ -243,55 +226,44 @@ export function DemoLanding() {
       <section id="o-que-vem" className="scroll-mt-6 mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">O que você recebe</p>
-          <h2 className="mt-2 text-3xl font-bold leading-tight">Não são só nomes de materiais. Cada parte entra em um momento do pedido.</h2>
+          <h2 className="mt-2 text-3xl font-bold leading-tight">O Cardápio é o produto principal. Os bônus ajudam depois que a cliente chama.</h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-            Veja a estrutura de cada item e como ela ajuda no atendimento. Você adapta as informações à sua confeitaria.
+            Você começa pelo que a cliente vê e também recebe apoio para responder e confirmar a encomenda.
           </p>
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
           <MaterialCard
             icon={LayoutTemplate}
-            eyebrow="Antes da conversa"
+            eyebrow="Produto principal"
             title="Cardápio que Rende"
-            description="Um guia para deixar o cardápio mais fácil de entender no celular."
-            items={["Descrição do produto", "Rendimento e preço", "Prazo e próximo passo"]}
-          />
-          <MaterialCard
-            icon={Wand2}
-            eyebrow="Durante a conversa"
-            title="DoceZap Premium"
-            description="Você informa a situação, revisa a sugestão e copia antes de enviar."
-            items={["70 respostas em 30 dias", "Voz mais personalizada", "Situações comuns de confeitaria"]}
+            description="Um guia prático para montar um cardápio mais fácil de entender no celular."
+            items={["Estrutura passo a passo", "Modelo de descrição", "Rendimento, preço, prazo e como pedir"]}
             featured
           />
           <MaterialCard
+            icon={Wand2}
+            eyebrow="Bônus 1"
+            title="DoceZap Premium por 30 dias"
+            description="Você informa a situação, revisa a sugestão e copia antes de enviar."
+            items={["70 respostas em 30 dias", "Voz mais personalizada", "Situações comuns de confeitaria"]}
+          />
+          <MaterialCard
             icon={ClipboardCheck}
-            eyebrow="Depois da decisão"
+            eyebrow="Bônus 2"
             title="Combinados da Encomenda"
             description="Mensagens e checklist para confirmar o pedido antes de produzir."
             items={["Sinal e pagamento", "Alterações e cancelamento", "Retirada e entrega"]}
           />
         </div>
 
-        <div className="mt-5 flex flex-col gap-3 rounded-3xl border border-primary/10 bg-white p-5 shadow-sm sm:flex-row sm:items-center">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
-            <CalendarDays className="h-6 w-6" />
-          </span>
-          <div className="flex-1">
-            <p className="font-bold">Datas que Rende também está incluído</p>
-            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-              Material complementar para planejar datas, limites de encomendas, prazos e divulgação sem comprometer sua produção.
-            </p>
-          </div>
-        </div>
       </section>
 
       <section className="border-y border-primary/10 bg-white/70">
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="space-y-4">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Por que não é só pedir uma resposta genérica?</p>
-            <h2 className="text-3xl font-bold leading-tight">Você não precisa começar do zero nem saber montar um prompt toda vez.</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Bônus: DoceZap Premium</p>
+            <h2 className="text-3xl font-bold leading-tight">Quando a cliente chama, você também tem ajuda para responder.</h2>
             <p className="text-base leading-relaxed text-muted-foreground">
               O DoceZap foi pensado para situações de atendimento da confeitaria. Você informa o que sabe, recebe uma sugestão e continua no controle antes de mandar.
             </p>
@@ -321,7 +293,7 @@ export function DemoLanding() {
             <PlayCircle className="h-4 w-4" />
             Demonstração real
           </span>
-          <h2 className="text-3xl font-bold leading-tight">Veja uma confeiteira usando o DoceZap.</h2>
+          <h2 className="text-3xl font-bold leading-tight">Veja o bônus DoceZap em uso.</h2>
           <p className="text-base leading-relaxed text-muted-foreground">
             O vídeo mostra a ferramenta em uso. A mensagem não é enviada sozinha: a confeiteira confere o texto antes de copiar e mandar pelo WhatsApp.
           </p>
@@ -353,13 +325,13 @@ export function DemoLanding() {
       <section id="oferta" className="border-y border-primary/10 bg-primary/[0.045]">
         <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Kit WhatsApp da Confeitaria</p>
-            <h2 className="mt-2 text-3xl font-bold leading-tight">Deixe o pedido mais claro do cardápio aos combinados.</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Cardápio Pronto para Pedido</p>
+            <h2 className="mt-2 text-3xl font-bold leading-tight">Organize o que a cliente precisa saber antes de fazer a encomenda.</h2>
           </div>
 
           <div className="mx-auto mt-7 max-w-2xl overflow-hidden rounded-[30px] border-2 border-primary bg-white shadow-2xl shadow-primary/15">
             <div className="flex flex-col gap-2 bg-primary px-5 py-4 text-white sm:flex-row sm:items-center sm:justify-between">
-              <span className="font-bold">Kit completo</span>
+              <span className="font-bold">Cardápio + dois bônus</span>
               <span className="text-xs font-bold">Pagamento único</span>
             </div>
 
@@ -370,7 +342,7 @@ export function DemoLanding() {
               </div>
 
               <ul className="grid gap-3 sm:grid-cols-2">
-                {KIT_FEATURES.map((feature) => (
+                {OFFER_FEATURES.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-700" />
                     <span className="text-sm font-medium leading-snug">{feature}</span>
@@ -383,7 +355,7 @@ export function DemoLanding() {
                 onClick={() => goToCheckout("premium", "main_offer")}
                 className="h-16 w-full whitespace-normal rounded-2xl px-4 text-lg font-bold leading-tight shadow-xl shadow-primary/20"
               >
-                Quero o Kit por R$49,90
+                Quero organizar por R$49,90
                 <ArrowRight className="h-5 w-5" />
               </Button>
 
@@ -395,23 +367,6 @@ export function DemoLanding() {
             </div>
           </div>
 
-          <div className="mx-auto mt-4 max-w-2xl rounded-3xl border border-primary/15 bg-white/90 p-5 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6 sm:text-left">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">Quer começar só pelas respostas?</p>
-              <h3 className="mt-1 text-xl font-bold">DoceZap Básico por R$19,90</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                São 30 respostas por 30 dias, sem os materiais do Kit e sem assinatura automática.
-              </p>
-            </div>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => goToCheckout("basic", "basic_after_kit")}
-              className="mt-4 h-12 w-full shrink-0 rounded-2xl border-2 border-primary/30 bg-white px-5 font-bold text-primary hover:bg-primary/5 hover:text-primary sm:mt-0 sm:w-auto"
-            >
-              Quero só o Básico
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -420,15 +375,15 @@ export function DemoLanding() {
           <h2 className="pb-1 pt-4 text-center text-xl font-bold">Dúvidas rápidas</h2>
           <Accordion type="single" collapsible>
             <AccordionItem value="automatic">
-              <AccordionTrigger className="text-left">O DoceZap responde sozinho?</AccordionTrigger>
+              <AccordionTrigger className="text-left">O Cardápio já vem preenchido?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                Não. Ele cria uma sugestão para você revisar, ajustar, copiar e mandar manualmente. Nenhuma mensagem vai para a cliente sem você enviar.
+                Não. Você recebe a estrutura, orientações e um modelo de descrição para adaptar aos seus produtos, preços, prazos e formas de entrega ou retirada.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="delivery">
-              <AccordionTrigger className="text-left">O que vem no Kit?</AccordionTrigger>
+              <AccordionTrigger className="text-left">O que eu recebo?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                DoceZap Premium por 30 dias, com 70 respostas e voz mais personalizada, além de Combinados da Encomenda, Cardápio que Rende e Datas que Rende.
+                Cardápio que Rende, DoceZap Premium por 30 dias com 70 respostas e voz mais personalizada, além dos Combinados da Encomenda.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="renewal">
@@ -443,10 +398,10 @@ export function DemoLanding() {
                 Sim. Você tem 7 dias de garantia após a compra.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="difference" className="border-b-0">
-              <AccordionTrigger className="text-left">Qual a diferença entre o Básico e o Kit?</AccordionTrigger>
+            <AccordionItem value="docezap" className="border-b-0">
+              <AccordionTrigger className="text-left">O DoceZap responde sozinho?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-muted-foreground">
-                O Básico inclui 30 respostas do DoceZap por 30 dias. O Kit inclui o DoceZap Premium, 70 respostas, voz mais personalizada e os materiais de cardápio, combinados e datas.
+                Não. Ele cria uma sugestão para você revisar, ajustar, copiar e mandar manualmente. Nenhuma mensagem vai para a cliente sem você enviar.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -457,14 +412,14 @@ export function DemoLanding() {
       <footer className="mx-auto max-w-lg px-6 pb-8 text-center text-xs leading-relaxed text-muted-foreground">
         <p>© 2026 DoceZap • Todos os direitos reservados.</p>
         <p className="mt-2">
-          O Kit ajuda você a preparar respostas e materiais de atendimento. Preço, disponibilidade e combinados continuam sendo confirmados por você.
+          O material orienta a organização do cardápio e do atendimento. Produtos, preços, prazos, disponibilidade e combinados continuam sendo definidos por você.
         </p>
       </footer>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-primary/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur">
         <div className="mx-auto flex max-w-3xl items-center gap-3">
           <div className="min-w-0 flex-1">
-            <p className="truncate text-xs font-bold text-muted-foreground">Kit WhatsApp da Confeitaria</p>
+            <p className="truncate text-xs font-bold text-muted-foreground">Cardápio Pronto para Pedido</p>
             <p className="text-sm font-bold text-foreground">R$49,90</p>
           </div>
           <Button
@@ -472,7 +427,7 @@ export function DemoLanding() {
             onClick={() => goToCheckout("premium", "sticky_cta")}
             className="h-12 shrink-0 rounded-2xl px-5 text-sm font-bold shadow-lg shadow-primary/20"
           >
-            Quero o Kit
+            Quero organizar
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
@@ -481,36 +436,36 @@ export function DemoLanding() {
   );
 }
 
-function KitJourneyPreview() {
+function OfferPreview() {
   return (
     <div className="min-w-0 rounded-[30px] border border-primary/10 bg-white p-4 shadow-2xl shadow-primary/15 sm:p-5">
       <div className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">Um pedido real</p>
-          <p className="mt-1 font-bold">Veja como as partes se encaixam</p>
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">Seu cardápio precisa mostrar</p>
+          <p className="mt-1 font-bold">O que poupa perguntas repetidas</p>
         </div>
-        <span className="rounded-full bg-green-100 px-3 py-1 text-[10px] font-bold text-green-800">Kit completo</span>
+        <span className="rounded-full bg-green-100 px-3 py-1 text-[10px] font-bold text-green-800">Passo a passo</span>
       </div>
 
       <div className="space-y-3">
         <PreviewStep
           icon={LayoutTemplate}
-          label="1. Ajude a escolher"
-          title="Cardápio mais claro"
-          lines={["O que é", "Para quantas pessoas", "Prazo e como pedir"]}
+          label="1. Apresente"
+          title="Produto bem explicado"
+          lines={["O que é", "Sabor e tamanho", "O que está incluído"]}
         />
         <PreviewStep
           icon={MessageCircle}
-          label="2. Continue a conversa"
-          title="Resposta para revisar"
-          lines={["Cliente: Vou olhar e te aviso", "Você: Me diz a data e para quantas pessoas?"]}
+          label="2. Facilite a escolha"
+          title="Informações que importam"
+          lines={["Rendimento", "Preço", "Antecedência"]}
           accent
         />
         <PreviewStep
           icon={ClipboardCheck}
-          label="3. Confirme o pedido"
-          title="Combinados organizados"
-          lines={["Sinal", "Alterações", "Retirada ou entrega"]}
+          label="3. Mostre o próximo passo"
+          title="Como fazer a encomenda"
+          lines={["O que enviar", "Prazo", "Retirada ou entrega"]}
         />
       </div>
     </div>
