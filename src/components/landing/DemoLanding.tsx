@@ -35,12 +35,12 @@ const PRODUCT = {
 } as const;
 
 const OFFER_ITEMS = [
-  "Cardápio que Rende com estrutura passo a passo",
-  "Modelo de descrição para adaptar aos seus produtos",
-  "Orientação para rendimento, preço, prazo e como pedir",
-  "DoceZap Premium por 30 dias, com 70 respostas",
-  "Combinados da Encomenda com mensagens e checklist",
-  "Pagamento único, sem assinatura automática",
+  "Checklist do que mostrar: descrição, rendimento, preço, prazo e como pedir",
+  "Modelo de descrição que você copia e adapta aos seus produtos",
+  "DoceZap para desconto, preço, cliente indecisa e pedido incompleto",
+  "Até 70 sugestões em 30 dias, ajustadas ao jeito que você quer responder",
+  "Mensagens para alinhar sinal, alterações, retirada e entrega",
+  "Checklist para conferir a encomenda antes de começar a produção",
 ];
 
 export function DemoLanding() {
@@ -91,7 +91,7 @@ export function DemoLanding() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#6f554d] sm:text-xl">
-            Organize descrição, rendimento, preço, prazo e próximo passo para a cliente entender melhor o que você vende antes de chamar no WhatsApp.
+            Use uma estrutura que mostra o que é o produto, quanto serve, qual é o preço, com quanto tempo pedir e o que a cliente precisa enviar para encomendar.
           </p>
 
           <div className="mt-7 flex max-w-md flex-col gap-3">
@@ -216,14 +216,14 @@ export function DemoLanding() {
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9e463a]">Tela real do produto</p>
             <h2 className="mt-3 font-headline text-4xl font-bold leading-tight sm:text-5xl">Você não começa olhando uma página em branco.</h2>
             <p className="mt-5 text-lg leading-relaxed text-[#6f554d]">
-              O material mostra o que precisa aparecer no cardápio e traz modelos para você adaptar ao produto que vende.
+              Você vê as informações que costumam faltar, copia um modelo de descrição e adapta com o produto, o preço e o prazo da sua confeitaria.
             </p>
             <ul className="mt-7 space-y-4">
               {[
-                "Estrutura para descrição do produto.",
-                "Orientação sobre rendimento, preço e antecedência.",
-                "Próximo passo claro para a cliente fazer o pedido.",
-                "Alertas para não copiar preço ou prazo de outro negócio.",
+                "O que escrever além do nome e da foto do produto.",
+                "Como informar tamanho, rendimento e o que está incluído.",
+                "Onde colocar o preço ou explicar que depende da personalização.",
+                "Como mostrar antecedência, retirada ou entrega e o próximo passo.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 border-b border-[#6f3d31]/10 pb-4 text-sm font-bold leading-relaxed">
                   <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#2f6e48]" />
@@ -239,9 +239,9 @@ export function DemoLanding() {
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#9e463a]">A compra inclui</p>
-            <h2 className="mt-3 font-headline text-4xl font-bold leading-tight sm:text-5xl">O Cardápio vem primeiro. Os bônus entram quando a cliente chama.</h2>
+            <h2 className="mt-3 font-headline text-4xl font-bold leading-tight sm:text-5xl">O Cardápio abre a conversa. Os bônus ajudam a responder e confirmar o pedido.</h2>
             <p className="mt-5 text-base leading-relaxed text-[#6f554d]">
-              Uma oferta só, com um produto principal e dois complementos ligados ao pedido.
+              Veja o que você faz com cada parte da oferta, desde a apresentação do produto até a confirmação da encomenda.
             </p>
           </div>
 
@@ -251,21 +251,37 @@ export function DemoLanding() {
               icon={LayoutTemplate}
               label="Produto principal"
               title="Cardápio que Rende"
-              text="Estrutura, orientações e modelo de descrição para organizar as informações do seu cardápio."
+              text="Em vez de mostrar só nome, foto e “consulte valores”, você monta uma apresentação que responde as dúvidas básicas antes da conversa começar."
+              items={[
+                "Confira as 8 informações que um produto precisa mostrar.",
+                "Copie um modelo de descrição e troque pelos dados do seu produto.",
+                "Deixe visíveis rendimento, preço, antecedência e como pedir.",
+              ]}
             />
             <OfferRow
               number="02"
               icon={MessageCircle}
               label="Bônus 1"
               title="DoceZap Premium por 30 dias"
-              text="70 respostas e voz mais personalizada para você revisar, copiar e enviar manualmente."
+              text="Cole a mensagem da cliente, escolha o que aconteceu e informe os detalhes do pedido. O DoceZap monta uma sugestão para você revisar antes de enviar."
+              items={[
+                "Use em desconto, “está caro”, cliente indecisa, sumiço depois do preço e pedido incompleto.",
+                "Mantenha uma aba por cliente para continuar a conversa sem começar do zero.",
+                "Configure como quer responder, encurte o texto, revise e copie.",
+                "Gere até 70 sugestões durante os 30 dias de acesso.",
+              ]}
             />
             <OfferRow
               number="03"
               icon={ClipboardCheck}
               label="Bônus 2"
               title="Combinados da Encomenda"
-              text="Mensagens e checklist para confirmar sinal, alterações, retirada e entrega."
+              text="Antes de produzir, organize o que foi acertado e envie um resumo para a cliente confirmar. Depois, confira os detalhes no checklist interno."
+              items={[
+                "Data, produto, sabor, tamanho, decoração e referência visual.",
+                "Valor total, sinal, restante e prazos de alteração ou cancelamento.",
+                "Retirada ou entrega, endereço, taxa e confirmação final da cliente.",
+              ]}
             />
           </div>
         </div>
@@ -323,7 +339,13 @@ export function DemoLanding() {
             <AccordionItem value="receive">
               <AccordionTrigger className="text-left">O que eu recebo?</AccordionTrigger>
               <AccordionContent className="leading-relaxed text-[#6f554d]">
-                Cardápio que Rende, DoceZap Premium por 30 dias com 70 respostas e voz mais personalizada, além dos Combinados da Encomenda.
+                Você recebe o Cardápio que Rende para estruturar descrição, rendimento, preço, prazo e como pedir; o DoceZap Premium por 30 dias para gerar até 70 sugestões em situações como desconto, preço e cliente indecisa; e os Combinados da Encomenda para organizar sinal, alterações, retirada, entrega e confirmação do pedido.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="how-docezap">
+              <AccordionTrigger className="text-left">Como o DoceZap funciona na conversa?</AccordionTrigger>
+              <AccordionContent className="leading-relaxed text-[#6f554d]">
+                Você cola a mensagem da cliente, escolhe a situação e informa o que sabe sobre o pedido. O DoceZap cria uma sugestão, mostra um próximo passo e permite encurtar ou copiar o texto. Você confere tudo antes de enviar.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="renewal">
@@ -381,12 +403,14 @@ function OfferRow({
   label,
   title,
   text,
+  items,
 }: {
   number: string;
   icon: React.ComponentType<{ className?: string }>;
   label: string;
   title: string;
   text: string;
+  items: string[];
 }) {
   return (
     <article className="grid gap-4 py-6 sm:grid-cols-[3rem_3rem_1fr] sm:items-start">
@@ -398,6 +422,14 @@ function OfferRow({
         <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#9e463a]">{label}</p>
         <h3 className="mt-1 font-headline text-2xl font-bold">{title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-[#6f554d]">{text}</p>
+        <ul className="mt-4 grid gap-2">
+          {items.map((item) => (
+            <li key={item} className="flex items-start gap-2 text-sm leading-relaxed text-[#3f2b25]">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#2f6e48]" />
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
     </article>
   );

@@ -6,14 +6,14 @@ import { Analytics } from '@/components/Analytics';
 export const metadata: Metadata = {
   metadataBase: new URL('https://oferta.chocolaterende.com'),
   title: 'Cardápio Pronto para Pedido | Chocolate Rende',
-  description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
+  description: 'Monte um cardápio que responde preço, rendimento, prazo e como pedir. Receba também ajuda para responder clientes e confirmar a encomenda.',
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     title: 'Cardápio Pronto para Pedido | Chocolate Rende',
-    description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
+    description: 'Monte um cardápio que responde preço, rendimento, prazo e como pedir. Receba também ajuda para responder clientes e confirmar a encomenda.',
     url: '/',
     siteName: 'Chocolate Rende',
     locale: 'pt_BR',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Cardápio Pronto para Pedido | Chocolate Rende',
-    description: 'Organize produto, rendimento, preço, prazo e como pedir. Inclui DoceZap Premium por 30 dias e Combinados da Encomenda.',
+    description: 'Monte um cardápio que responde preço, rendimento, prazo e como pedir. Receba também ajuda para responder clientes e confirmar a encomenda.',
     images: ['/produtos/banner-cardapio-pronto-checkout.png'],
   },
 };
