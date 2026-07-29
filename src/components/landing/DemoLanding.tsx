@@ -164,15 +164,19 @@ export function DemoLanding() {
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#df9a90]">Antes</p>
                 <span className="text-xs text-white/45">Exemplo comum</span>
               </div>
-              <div className="mt-5 bg-[#fffaf5] p-5 text-[#241713]">
-                <p className="font-headline text-2xl font-bold">Bolo de Ninho com Morango</p>
-                <p className="mt-2 text-sm text-[#806b64]">Consulte valores</p>
+              <div className="mt-5 overflow-hidden bg-[#fffaf5]">
+                <Image
+                  src="/provas/cardapio-antes-mini-donuts.png"
+                  alt="Cardápio de mini donuts com sabores e fotos, mas sem preço, rendimento, prazo ou instrução para pedir"
+                  width={1536}
+                  height={2048}
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  className="h-[420px] w-full object-cover object-top"
+                />
               </div>
-              <div className="mt-5 space-y-2 text-sm text-white/70">
-                <p>“Serve quantas pessoas?”</p>
-                <p>“Qual é o valor?”</p>
-                <p>“Com quanto tempo preciso pedir?”</p>
-              </div>
+              <p className="mt-5 text-sm leading-relaxed text-white/70">
+                Bonito, mas a cliente ainda precisa perguntar preço, quantidade, prazo e como pedir.
+              </p>
             </article>
 
             <article className="border border-[#d8a24b] bg-[#fffaf5] p-5 text-[#241713] sm:p-7">
